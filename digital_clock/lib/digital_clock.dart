@@ -143,6 +143,26 @@ class _DigitalClockState extends State<DigitalClock> {
 
 //    pegBoard.clearBorder(2);
 
+    // Extract time digits
+    int h0 = 0;
+    int h1 = 0;
+    int m0 = 0;
+    int m1 = 0;
+
+    if (hour.length < 2) {
+      h1 = int.parse(hour[0]);
+    } else {
+      h0 = int.parse(hour[0]);
+      h1 = int.parse(hour[1]);
+    }
+
+    if (minute.length < 2) {
+      m1 = int.parse(minute[0]);
+    } else {
+      m0 = int.parse(minute[0]);
+      m1 = int.parse(minute[1]);
+    }
+
     pegBoard.clearNumber(0);
     pegBoard.clearNumber(1);
     pegBoard.clearNumber(2);
@@ -151,10 +171,15 @@ class _DigitalClockState extends State<DigitalClock> {
 
     pegBoard.drawColon();
 
-    pegBoard.placeNumberOnSlot(0, 1);
-    pegBoard.placeNumberOnSlot(1, 2);
-    pegBoard.placeNumberOnSlot(2, 3);
-    pegBoard.placeNumberOnSlot(3, 4);
+    pegBoard.placeNumberOnSlot(0, h0);
+    pegBoard.placeNumberOnSlot(1, h1);
+    pegBoard.placeNumberOnSlot(2, m0);
+    pegBoard.placeNumberOnSlot(3, m1);
+
+//    pegBoard.placeNumberOnSlot(0, 1);
+//    pegBoard.placeNumberOnSlot(1, 2);
+//    pegBoard.placeNumberOnSlot(2, 3);
+//    pegBoard.placeNumberOnSlot(3, 4);
 
 //    pegBoard.placeNumberOnSlot(0, 5);
 //    pegBoard.placeNumberOnSlot(1, 6);
