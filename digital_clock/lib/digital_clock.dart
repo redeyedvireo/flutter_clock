@@ -141,6 +141,27 @@ class _DigitalClockState extends State<DigitalClock> {
       pegBoard.generateRandomBoard();
     }
 
+    // pegBoard.clearBorder(1);
+    pegBoard.clearNumber(0);
+    pegBoard.clearNumber(1);
+    pegBoard.clearNumber(2);
+    pegBoard.clearNumber(3);
+
+    pegBoard.placeNumberOnSlot(0, 1);
+    pegBoard.placeNumberOnSlot(1, 2);
+    pegBoard.placeNumberOnSlot(2, 3);
+    pegBoard.placeNumberOnSlot(3, 4);
+
+//    pegBoard.placeNumberOnSlot(0, 5);
+//    pegBoard.placeNumberOnSlot(1, 6);
+//    pegBoard.placeNumberOnSlot(2, 7);
+//    pegBoard.placeNumberOnSlot(3, 8);
+
+//    pegBoard.placeNumberOnSlot(0, 4);
+//    pegBoard.placeNumberOnSlot(1, 3);
+//    pegBoard.placeNumberOnSlot(2, 6);
+//    pegBoard.placeNumberOnSlot(3, 9);
+
     return Container(
       color: colors[_Element.background],
       child: Column(
