@@ -137,15 +137,19 @@ class _DigitalClockState extends State<DigitalClock> {
 
     _calculatePegWidth(context);
 
-    if (int.parse(second) % 3 == 0) {
-      pegBoard.generateRandomBoard();
-    }
+//    if (int.parse(second) % 3 == 0) {
+//      pegBoard.generateRandomBoard();
+//    }
 
-    // pegBoard.clearBorder(1);
+//    pegBoard.clearBorder(2);
+
     pegBoard.clearNumber(0);
     pegBoard.clearNumber(1);
     pegBoard.clearNumber(2);
     pegBoard.clearNumber(3);
+    pegBoard.clearColonArea();
+
+    pegBoard.drawColon();
 
     pegBoard.placeNumberOnSlot(0, 1);
     pegBoard.placeNumberOnSlot(1, 2);

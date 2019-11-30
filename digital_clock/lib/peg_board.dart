@@ -13,6 +13,7 @@ class PegBoard {
   static const numberHeight = 16;   // Height of a number, in pegs
   static const spaceWidth = 2;      // Width of space, in pegs
   static const colonWidth = 2;      // Width of the colon, in pegs
+  static const colonTop = 5;        // Top row of top of colon (the top 'dot')
 
   // x value of the left side of each number "slot".  A slot is where a number will appear.
   static const numberSlotLeftPegIds = [0, 7, 18, 25];
@@ -55,47 +56,29 @@ class PegBoard {
 
   void clearBorder(int borderWidth) {
     // Top row
-    for (int i = 0; i < borderWidth; i++) {
-      clearPegRow(i);
-    }
+    clearPegArea(0, 0, pegWidth, borderWidth);
 
     // Bottom row
-    for (int i = 0; i < borderWidth; i++) {
-      clearPegRow(pegHeight - 1 - i);
-    }
+    clearPegArea(0, pegHeight - borderWidth, pegWidth, borderWidth);
 
     // Left side
-    for (int i = 0; i < borderWidth; i++) {
-      clearPegColumn(i);
-    }
+    clearPegArea(0, 0, borderWidth, pegHeight);
 
     // Right side
-    for (int i = 0; i < borderWidth; i++) {
-      clearPegColumn(pegWidth - 1 - i);
-    }
-  }
-
-  void clearPegRow(int row) {
-    int startPegId = row * pegWidth;
-
-    for (int i = 0; i < pegWidth; i++) {
-      _pegs[i + startPegId].color = blankPeg;
-    }
-  }
-
-  void clearPegColumn(int column) {
-    for (int i = 0, pegId = column; i < pegHeight; i++, pegId += pegWidth) {
-      _pegs[pegId].color = blankPeg;
-    }
+    clearPegArea(pegWidth - borderWidth, 0, borderWidth, pegHeight);
   }
 
   void clearPegArea(int x, int y, int width, int height) {
+    fillPegArea(x, y, width, height, blankPeg);
+  }
+
+  void fillPegArea(int x, int y, int width, int height, Color color) {
     int leftPegId = _pegId(x, y);
     int curPegId = leftPegId;
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        _pegs[curPegId].color = blankPeg;
+        _pegs[curPegId].color = color;
         curPegId++;
       }
 
@@ -135,5 +118,14 @@ class PegBoard {
       leftPegId += pegWidth;
       curPegId = leftPegId;
     }
+  }
+
+  void clearColonArea() {
+    clearPegArea(12, 0, 6, pegHeight);
+  }
+
+  void drawColon() {
+    fillPegArea(14, colonTop, 2, 2, whitePeg);
+    fillPegArea(14, colonTop + 5, 2, 2, whitePeg);
   }
 }
