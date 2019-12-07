@@ -137,11 +137,13 @@ class _DigitalClockState extends State<DigitalClock> {
 
     _calculatePegWidth(context);
 
-//    if (int.parse(second) % 3 == 0) {
-//      pegBoard.generateRandomBoard();
-//    }
+    if (int.parse(second) % 3 == 0) {
+      pegBoard.setRandomBackgroundColor(0.2);
+    }
 
 //    pegBoard.clearBorder(2);
+
+    pegBoard.drawBackground();
 
     // Extract time digits
     int h0 = 0;
@@ -163,10 +165,6 @@ class _DigitalClockState extends State<DigitalClock> {
       m1 = int.parse(minute[1]);
     }
 
-    pegBoard.clearNumber(0);
-    pegBoard.clearNumber(1);
-    pegBoard.clearNumber(2);
-    pegBoard.clearNumber(3);
     pegBoard.clearColonArea();
 
     pegBoard.drawColon();

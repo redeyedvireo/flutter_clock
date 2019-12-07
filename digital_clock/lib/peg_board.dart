@@ -21,11 +21,15 @@ class PegBoard {
   final totalPegs = pegWidth * pegHeight;
   Random _random;
 
+  Color globalBackgroundColor = PegData.blankPeg;
+
   Map<int, PegData>   _pegs = {};
 
   PegBoard() {
     _random = Random(DateTime.now().second);
 
+    setRandomBackgroundColor(0.5);
+    
     // Create pegs
     for (int i = 0; i < totalPegs; i++) {
       _pegs[i] = PegData(color: PegData.blankPeg, pegType: PegType.background);
@@ -34,22 +38,32 @@ class PegBoard {
 
   PegData getPeg(int index) => _pegs[index];
 
-  Color _randomColor() {
+  Color _randomColor(double opacity) {
     final red = _random.nextInt(256);
     final green = _random.nextInt(256);
     final blue = _random.nextInt(256);
 
-    return Color.fromRGBO(red, green, blue, 1.0);
+    return Color.fromRGBO(red, green, blue, opacity);
   }
 
   // Set pegs to a random color
   void generateRandomBoard() {
     for (int i = 0; i < totalPegs; i++) {
-      _pegs[i].digitColor = _randomColor();
+      _pegs[i].backgroundColor = _randomColor(1.0);
     }
   }
 
+  void setRandomBackgroundColor(double opacity) {
+    globalBackgroundColor = _randomColor(opacity);
+  }
+
   int _pegId(int x, int y) => y * pegWidth + x;
+
+  void drawBackground() {
+    for (int i = 0; i < totalPegs; i++) {
+      _pegs[i].backgroundColor = globalBackgroundColor;
+    }
+  }
 
   void clearBorder(int borderWidth) {
     // Top row
@@ -66,16 +80,16 @@ class PegBoard {
   }
 
   void clearPegArea(int x, int y, int width, int height) {
-    fillPegArea(x, y, width, height, PegData.blankPeg);
+    fillPegArea(x, y, width, height, globalBackgroundColor, PegType.background);
   }
 
-  void fillPegArea(int x, int y, int width, int height, Color color) {
+  void fillPegArea(int x, int y, int width, int height, Color color, PegType pegType) {
     int leftPegId = _pegId(x, y);
     int curPegId = leftPegId;
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        _pegs[curPegId].digitColor = color;
+        _pegs[curPegId].setPegType(color, pegType);
         curPegId++;
       }
 
@@ -104,8 +118,6 @@ class PegBoard {
       for (int j = 0; j < numberWidth; j++) {
         if (numberData[dataOffset] == 1) {
           _pegs[curPegId].digitColor = PegData.whitePeg;
-        } else {
-          _pegs[curPegId].digitColor = PegData.blankPeg;
         }
 
         dataOffset++;
@@ -122,7 +134,7 @@ class PegBoard {
   }
 
   void drawColon() {
-    fillPegArea(14, colonTop, 2, 2, PegData.whitePeg);
-    fillPegArea(14, colonTop + 5, 2, 2, PegData.whitePeg);
+    fillPegArea(14, colonTop, 2, 2, PegData.whitePeg, PegType.digit);
+    fillPegArea(14, colonTop + 5, 2, 2, PegData.whitePeg, PegType.digit);
   }
 }

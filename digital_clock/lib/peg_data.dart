@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'peg_widget.dart';
-
 enum PegType {
   background,
   effect,
@@ -16,9 +14,11 @@ class PegData {
   Color _backgroundColor = blankPeg;
   Color _effectColor = blankPeg;
 
-  PegType pegType;
+  PegType _pegType;
 
-  PegData({@required Color color, @required this.pegType}) {
+  PegData({@required Color color, @required pegType}) {
+    _pegType = pegType;
+
     switch (pegType) {
       case PegType.background:
         _backgroundColor = color;
@@ -35,7 +35,7 @@ class PegData {
   }
 
   Color get color {
-    switch (pegType) {
+    switch (_pegType) {
       case PegType.background:
         return _backgroundColor;
 
@@ -48,17 +48,35 @@ class PegData {
   }
 
   set digitColor(Color color) {
-    pegType = PegType.digit;
+    _pegType = PegType.digit;
     _digitColor = color;
   }
 
   set backgroundColor(Color color) {
-    pegType = PegType.background;
+    _pegType = PegType.background;
     _backgroundColor = color;
   }
 
   set effectColor(Color color) {
-    pegType = PegType.effect;
+    _pegType = PegType.effect;
     _effectColor = color;
+  }
+
+  setPegType(Color color, PegType pegType) {
+    _pegType = pegType;
+
+    switch (_pegType) {
+      case PegType.background:
+        _backgroundColor = color;
+        break;
+
+      case PegType.digit:
+        _digitColor = color;
+        break;
+
+      case PegType.effect:
+        _effectColor = color;
+        break;
+    }
   }
 }
