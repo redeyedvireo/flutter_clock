@@ -21,9 +21,6 @@ class PegBoard {
   final totalPegs = pegWidth * pegHeight;
   Random _random;
 
-  final blankPeg = Color.fromRGBO(0, 0, 0, 0.0);
-  final whitePeg = Colors.white;
-
   Map<int, PegData>   _pegs = {};
 
   PegBoard() {
@@ -31,7 +28,7 @@ class PegBoard {
 
     // Create pegs
     for (int i = 0; i < totalPegs; i++) {
-      _pegs[i] = PegData(color: blankPeg);
+      _pegs[i] = PegData(color: PegData.blankPeg, pegType: PegType.background);
     }
   }
 
@@ -48,7 +45,7 @@ class PegBoard {
   // Set pegs to a random color
   void generateRandomBoard() {
     for (int i = 0; i < totalPegs; i++) {
-      _pegs[i].color = _randomColor();
+      _pegs[i].digitColor = _randomColor();
     }
   }
 
@@ -69,7 +66,7 @@ class PegBoard {
   }
 
   void clearPegArea(int x, int y, int width, int height) {
-    fillPegArea(x, y, width, height, blankPeg);
+    fillPegArea(x, y, width, height, PegData.blankPeg);
   }
 
   void fillPegArea(int x, int y, int width, int height, Color color) {
@@ -78,7 +75,7 @@ class PegBoard {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        _pegs[curPegId].color = color;
+        _pegs[curPegId].digitColor = color;
         curPegId++;
       }
 
@@ -106,9 +103,9 @@ class PegBoard {
     for (int i = 0; i < numberDataHeight; i++) {
       for (int j = 0; j < numberWidth; j++) {
         if (numberData[dataOffset] == 1) {
-          _pegs[curPegId].color = whitePeg;
+          _pegs[curPegId].digitColor = PegData.whitePeg;
         } else {
-          _pegs[curPegId].color = blankPeg;
+          _pegs[curPegId].digitColor = PegData.blankPeg;
         }
 
         dataOffset++;
@@ -125,7 +122,7 @@ class PegBoard {
   }
 
   void drawColon() {
-    fillPegArea(14, colonTop, 2, 2, whitePeg);
-    fillPegArea(14, colonTop + 5, 2, 2, whitePeg);
+    fillPegArea(14, colonTop, 2, 2, PegData.whitePeg);
+    fillPegArea(14, colonTop + 5, 2, 2, PegData.whitePeg);
   }
 }
