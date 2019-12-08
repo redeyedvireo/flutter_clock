@@ -101,12 +101,17 @@ class _DigitalClockState extends State<DigitalClock> {
 
        // Update once per second, but make sure to do it at the beginning of each
        // new second, so that the clock is accurate.
-       _timer = Timer(
-         Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
-         _updateTime,
-       );
+//       _timer = Timer(
+//         Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
+//         _updateTime,
+//       );
 
-       // TODO: Update 4 or 8 times per second, to allow for sub-second animations.
+
+       // Update 8 times per second, to allow for animations.
+      _timer = Timer(
+        Duration(milliseconds: 125),
+        _updateTime
+      );
     });
   }
 
@@ -136,12 +141,6 @@ class _DigitalClockState extends State<DigitalClock> {
     );
 
     _calculatePegWidth(context);
-
-    if (int.parse(second) % 3 == 0) {
-      pegBoard.setRandomBackgroundColor(0.2);
-    }
-
-//    pegBoard.clearBorder(2);
 
     pegBoard.drawBackground();
 
