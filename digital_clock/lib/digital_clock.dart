@@ -164,8 +164,6 @@ class _DigitalClockState extends State<DigitalClock> {
       m1 = int.parse(minute[1]);
     }
 
-    pegBoard.clearColonArea();
-
     pegBoard.drawColon();
 
     pegBoard.placeNumberOnSlot(0, h0);

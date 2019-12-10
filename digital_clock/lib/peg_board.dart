@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'peg_data.dart';
 import 'numbers.dart';
+import 'color_fader.dart';
 
 class PegBoard {
   static const pegWidth = 30;
@@ -22,13 +23,25 @@ class PegBoard {
   Random _random;
 
   Color globalBackgroundColor = PegData.blankPeg;
+  Color digitColor = PegData.whitePeg;
 
+  // Color deltas for background color 
+  int redDelta = 0;
+  int blueDelta = 0;
+  int greenDelta = 0;
+  
+  // Color deltas for digit color
+  int digitRedDelta = 0;
+  int digitBlueDelta = 0;
+  int digitGreenDelta = 0;
+  
   Map<int, PegData>   _pegs = {};
 
   PegBoard() {
     _random = Random(DateTime.now().second);
 
     setRandomBackgroundColor(0.5);
+    setRandomDigitColor();
     
     // Create pegs
     for (int i = 0; i < totalPegs; i++) {
@@ -55,13 +68,38 @@ class PegBoard {
 
   void setRandomBackgroundColor(double opacity) {
     globalBackgroundColor = _randomColor(opacity);
+
+    redDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
+    blueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
+    greenDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
   }
 
+  void setRandomDigitColor() {
+    digitColor = _randomColor(1.0);
+
+    digitRedDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
+    digitBlueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
+    digitGreenDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
+  }
+  
   int _pegId(int x, int y) => y * pegWidth + x;
 
   void drawBackground() {
-    for (int i = 0; i < totalPegs; i++) {
-      _pegs[i].backgroundColor = globalBackgroundColor;
+    final colorFader = ColorFader(color: globalBackgroundColor, redDelta: redDelta, blueDelta: blueDelta, greenDelta: greenDelta);
+
+    int leftPegId = _pegId(0, 0);
+    int curPegId = leftPegId;
+
+    for (int i = 0; i < pegHeight; i++) {
+      for (int j = 0; j < pegWidth; j++) {
+        // _pegs[curPegId].setPegType(PegData.blankPeg, PegType.background);   // DEBUG
+        _pegs[curPegId].setPegType(colorFader.color, PegType.background);
+        curPegId++;
+      }
+
+      leftPegId += pegWidth;
+      curPegId = leftPegId;
+      colorFader.nextStep();
     }
   }
 
@@ -109,6 +147,7 @@ class PegBoard {
     final numberData = numbers[number];
     final numberDataHeight = 9; // TODO: Fix this - make numbers 8 or 10 rows
     final rowOffset = (numberHeight - numberDataHeight) ~/ 2 + 1;
+    final colorFader = ColorFader(color: digitColor, redDelta: digitRedDelta, blueDelta: digitBlueDelta, greenDelta: digitGreenDelta);
 
     int leftPegId = _pegId(numberSlotLeftPegIds[slot], rowOffset);
     int curPegId = leftPegId;
@@ -117,7 +156,7 @@ class PegBoard {
     for (int i = 0; i < numberDataHeight; i++) {
       for (int j = 0; j < numberWidth; j++) {
         if (numberData[dataOffset] == 1) {
-          _pegs[curPegId].digitColor = PegData.whitePeg;
+          _pegs[curPegId].digitColor = colorFader.color;
         }
 
         dataOffset++;
@@ -126,6 +165,7 @@ class PegBoard {
 
       leftPegId += pegWidth;
       curPegId = leftPegId;
+      colorFader.nextStep();
     }
   }
 
@@ -134,7 +174,28 @@ class PegBoard {
   }
 
   void drawColon() {
-    fillPegArea(14, colonTop, 2, 2, PegData.whitePeg, PegType.digit);
-    fillPegArea(14, colonTop + 5, 2, 2, PegData.whitePeg, PegType.digit);
+    final colonData = colon;
+    final numberDataHeight = 9; // TODO: Fix this - make numbers 8 or 10 rows
+    final rowOffset = (numberHeight - numberDataHeight) ~/ 2 + 1;
+    final colorFader = ColorFader(color: digitColor, redDelta: digitRedDelta, blueDelta: digitBlueDelta, greenDelta: digitGreenDelta);
+
+    int leftPegId = _pegId(14, rowOffset);
+    int curPegId = leftPegId;
+
+    int dataOffset = 0;
+    for (int i = 0; i < numberDataHeight; i++) {
+      for (int j = 0; j < colonWidth; j++) {
+        if (colonData[dataOffset] == 1) {
+          _pegs[curPegId].digitColor = colorFader.color;
+        }
+
+        dataOffset++;
+        curPegId++;
+      }
+
+      leftPegId += pegWidth;
+      curPegId = leftPegId;
+      colorFader.nextStep();
+    }
   }
 }
