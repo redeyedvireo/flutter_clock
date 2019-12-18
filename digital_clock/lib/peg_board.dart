@@ -1,5 +1,6 @@
 // Keeps track of the entire board.  Kinda like an off-screen buffer, but for pegs.
 
+import 'package:digital_clock/color_cyler.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -34,7 +35,9 @@ class PegBoard {
   int digitRedDelta = 0;
   int digitBlueDelta = 0;
   int digitGreenDelta = 0;
-  
+
+  ColorCycler colorCycler;
+
   Map<int, PegData>   _pegs = {};
 
   PegBoard() {
@@ -42,7 +45,15 @@ class PegBoard {
 
     setRandomBackgroundColor(0.5);
     setRandomDigitColor();
-    
+
+    colorCycler = ColorCycler(redMin: 100, redMax: 200,
+                              greenMin: 100, greenMax: 200,
+                              blueMin: 100, blueMax: 200,
+                              redDelta: _random.nextInt(10) + 5,
+                              greenDelta: _random.nextInt(10) + 5,
+                              blueDelta: _random.nextInt(10) + 5,
+                              alpha: 255);
+
     // Create pegs
     for (int i = 0; i < totalPegs; i++) {
       _pegs[i] = PegData(color: PegData.blankPeg, pegType: PegType.background);
@@ -85,6 +96,15 @@ class PegBoard {
   int _pegId(int x, int y) => y * pegWidth + x;
 
   void drawBackground() {
+    _drawBackgroundWithColorCycler();
+  }
+
+  void _drawBackgroundWithColorCycler() {
+    fillPegArea(0, 0, pegWidth, pegHeight, colorCycler.color, PegType.background);
+    colorCycler.next();
+  }
+
+  void _drawBackgroundWithFader() {
     final colorFader = ColorFader(color: globalBackgroundColor, redDelta: redDelta, blueDelta: blueDelta, greenDelta: greenDelta);
 
     int leftPegId = _pegId(0, 0);
