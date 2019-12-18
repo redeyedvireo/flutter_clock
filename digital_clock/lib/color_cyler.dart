@@ -7,27 +7,27 @@ enum ColorElement {
 }
 
 class ColorCycler {
-  int redMin;
-  int redMax;
+  double redMin;
+  double redMax;
 
-  int greenMin;
-  int greenMax;
+  double greenMin;
+  double greenMax;
 
-  int blueMin;
-  int blueMax;
+  double blueMin;
+  double blueMax;
 
-  int redDelta;
-  int greenDelta;
-  int blueDelta;
+  double redDelta;
+  double greenDelta;
+  double blueDelta;
 
-  int alpha;
+  double alpha;
 
-  int _red;
-  int _green;
-  int _blue;
+  double _red;
+  double _green;
+  double _blue;
 
   // Current values
-  int _minValue, _maxValue, _currentValue, _increment;
+  double _minValue, _maxValue, _currentValue, _increment;
 
   ColorElement _colorElement;
 
@@ -59,7 +59,7 @@ class ColorCycler {
   }
 
   void _buildColor() {
-    color = Color.fromARGB(alpha, _red, _green, _blue);
+    color = Color.fromARGB(alpha.round(), _red.round(), _green.round(), _blue.round());
   }
 
   void next() {
@@ -110,8 +110,8 @@ class ColorCycler {
   //    [ newCurrentValue, boolean indicating if this color element should continue
   //    to be used for the next color cycling step. ]
   //
-  List _stepColor(int minValue, int maxValue, int currentValue, int increment) {
-    int tempValue = currentValue + increment;
+  List _stepColor(double minValue, double maxValue, double currentValue, double increment) {
+    double tempValue = currentValue + increment;
 
     if (increment > 0) {
       if (tempValue > maxValue) {

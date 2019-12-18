@@ -37,6 +37,7 @@ class PegBoard {
   int digitGreenDelta = 0;
 
   ColorCycler colorCycler;
+  double colorCycleScaleFactor = 20.0;
 
   Map<int, PegData>   _pegs = {};
 
@@ -49,9 +50,9 @@ class PegBoard {
     colorCycler = ColorCycler(redMin: 100, redMax: 200,
                               greenMin: 100, greenMax: 200,
                               blueMin: 100, blueMax: 200,
-                              redDelta: _random.nextInt(10) + 5,
-                              greenDelta: _random.nextInt(10) + 5,
-                              blueDelta: _random.nextInt(10) + 5,
+                              redDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
+                              greenDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
+                              blueDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
                               alpha: 255);
 
     // Create pegs
