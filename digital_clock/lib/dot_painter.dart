@@ -18,7 +18,7 @@ class DotPainter extends CustomPainter {
   }
 
   void _setBlurSigma() {
-    blurSigma = dotRadius / 6;
+    blurSigma = dotRadius / 2;
   }
 
   void setColor(Color color) {
@@ -45,7 +45,7 @@ class DotPainter extends CustomPainter {
                           ..color = dotColor
                           ..strokeWidth = 2.0
                           ..style = PaintingStyle.fill
-                          ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurSigma));
+                          ..maskFilter = MaskFilter.blur(BlurStyle.solid, blurSigma));
   }
 
   @override
