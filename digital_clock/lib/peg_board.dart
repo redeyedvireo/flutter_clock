@@ -18,7 +18,7 @@ class PegBoard {
   static const colonTop = 5;        // Top row of top of colon (the top 'dot')
 
   // x value of the left side of each number "slot".  A slot is where a number will appear.
-  static const numberSlotLeftPegIds = [0, 7, 18, 25];
+  static const numberSlotLeftPegIds = [2, 8, 17, 23];
 
   final totalPegs = pegWidth * pegHeight;
   Random _random;
