@@ -5,12 +5,20 @@ class DotPainter extends CustomPainter {
   double dotRadius;
   Color dotColor;
   bool repaintDot = false;
+  double blurSigma;
 
-  DotPainter({@required this.dotRadius, @required this.dotColor});
+  DotPainter({@required this.dotRadius, @required this.dotColor}) {
+    _setBlurSigma();
+  }
 
   void setRadius(double radius) {
     dotRadius = radius;
+    _setBlurSigma();
     repaintDot = true;
+  }
+
+  void _setBlurSigma() {
+    blurSigma = dotRadius / 6;
   }
 
   void setColor(Color color) {
@@ -36,7 +44,8 @@ class DotPainter extends CustomPainter {
                         Paint()
                           ..color = dotColor
                           ..strokeWidth = 2.0
-                          ..style = PaintingStyle.fill);
+                          ..style = PaintingStyle.fill
+                          ..maskFilter = MaskFilter.blur(BlurStyle.normal, blurSigma));
   }
 
   @override
