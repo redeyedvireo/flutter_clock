@@ -47,13 +47,13 @@ class PegBoard {
     setRandomBackgroundColor(0.5);
     setRandomDigitColor();
 
-    colorCycler = ColorCycler(redMin: 100, redMax: 200,
-                              greenMin: 100, greenMax: 200,
-                              blueMin: 100, blueMax: 200,
+    colorCycler = ColorCycler(redMin: 100, redMax: 150,
+                              greenMin: 100, greenMax: 150,
+                              blueMin: 100, blueMax: 150,
                               redDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
                               greenDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
                               blueDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
-                              alpha: 255);
+                              alpha: 150);
 
     // Create pegs
     for (int i = 0; i < totalPegs; i++) {
