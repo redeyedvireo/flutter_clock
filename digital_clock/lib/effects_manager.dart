@@ -49,14 +49,14 @@ class EffectsManager {
       if (effect != null) {
         final stillActive = effect.next();
 
-        _lastEffectUpdateTime = DateTime.now();
-
         if (!stillActive) {
           // Effect is done - add it to the list of effects to remove
           finishedEffectIndexes.add(index);
         }
       }
     });
+
+    _lastEffectUpdateTime = DateTime.now();
 
     // Remove finished effects
     finishedEffectIndexes.forEach((int index) {
