@@ -35,6 +35,7 @@ final _darkTheme = {
 
 final borderPerDimension = 4;
 
+final framesPerSecond = 8;
 
 /// A basic digital clock.
 ///
@@ -68,7 +69,7 @@ class _DigitalClockState extends State<DigitalClock> {
 
     effectsManager.pegBoard = pegBoard;
 
-    effectsManager.addVerticalLineEffect(250);
+    effectsManager.addVerticalLineEffect(150);
   }
 
   @override
@@ -116,12 +117,13 @@ class _DigitalClockState extends State<DigitalClock> {
 
        // Update 8 times per second, to allow for animations.
       _timer = Timer(
-        Duration(milliseconds: 125),
+        Duration(milliseconds: _frameDuration),
         _updateTime
       );
     });
   }
 
+  int get _frameDuration => (1 ~/ framesPerSecond) * 1000;
 
   @override
   Widget build(BuildContext context) {
