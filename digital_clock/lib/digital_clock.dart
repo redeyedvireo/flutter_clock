@@ -208,8 +208,8 @@ class _DigitalClockState extends State<DigitalClock> {
   }
 
   void _calculatePegWidth(BuildContext context) {
-    final drawingWidth = MediaQuery.of(context).size.width - borderPerDimension;
-    _pegWidth = (drawingWidth / (PegBoard.pegWidth + 1)).floor();
+      final drawingWidth = MediaQuery.of(context).size.width - borderPerDimension;
+      _pegWidth = (drawingWidth / (PegBoard.pegWidth + 1)).floor();
   }
 
   List<Widget> _generatePegColumn(int numRows, int numPegsInRow) {
@@ -231,7 +231,7 @@ class _DigitalClockState extends State<DigitalClock> {
       final pegId = startingId + i;
       final pegData = pegBoard.getPeg(pegId);
 
-      PegWidget pegWidget = PegWidget(width: _pegWidth, color: pegData.color,);
+      PegWidget pegWidget = PegWidget(width: _pegWidth, color: pegData.pegColor,);
       pegs.add(pegWidget);
       _pegWidgets[pegId] = pegWidget;
     }

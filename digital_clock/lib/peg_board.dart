@@ -74,7 +74,7 @@ class PegBoard {
   // Set pegs to a random color
   void generateRandomBoard() {
     for (int i = 0; i < totalPegs; i++) {
-      _pegs[i].backgroundColor = _randomColor(1.0);
+      _pegs[i].pegColor = _randomColor(1.0);
     }
   }
 
@@ -101,7 +101,7 @@ class PegBoard {
   }
 
   void _drawBackgroundWithColorCycler() {
-    fillPegArea(0, 0, pegWidth, pegHeight, colorCycler.color, PegType.background);
+    fillPegArea(0, 0, pegWidth, pegHeight, colorCycler.color);
     colorCycler.next();
   }
 
@@ -114,7 +114,7 @@ class PegBoard {
     for (int i = 0; i < pegHeight; i++) {
       for (int j = 0; j < pegWidth; j++) {
         // _pegs[curPegId].setPegType(PegData.blankPeg, PegType.background);   // DEBUG
-        _pegs[curPegId].setPegType(colorFader.color, PegType.background);
+        _pegs[curPegId].pegColor = colorFader.color;
         curPegId++;
       }
 
@@ -139,16 +139,16 @@ class PegBoard {
   }
 
   void clearPegArea(int x, int y, int width, int height) {
-    fillPegArea(x, y, width, height, globalBackgroundColor, PegType.background);
+    fillPegArea(x, y, width, height, globalBackgroundColor);
   }
 
-  void fillPegArea(int x, int y, int width, int height, Color color, PegType pegType) {
+  void fillPegArea(int x, int y, int width, int height, Color color) {
     int leftPegId = _pegId(x, y);
     int curPegId = leftPegId;
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        _pegs[curPegId].setPegType(color, pegType);
+        _pegs[curPegId].pegColor = color;
         curPegId++;
       }
 
@@ -177,7 +177,7 @@ class PegBoard {
     for (int i = 0; i < numberDataHeight; i++) {
       for (int j = 0; j < numberWidth; j++) {
         if (numberData[dataOffset] == 1) {
-          _pegs[curPegId].digitColor = colorFader.color;
+          _pegs[curPegId].pegColor = colorFader.color;
         }
 
         dataOffset++;
@@ -207,7 +207,7 @@ class PegBoard {
     for (int i = 0; i < numberDataHeight; i++) {
       for (int j = 0; j < colonWidth; j++) {
         if (colonData[dataOffset] == 1) {
-          _pegs[curPegId].digitColor = colorFader.color;
+          _pegs[curPegId].pegColor = colorFader.color;
         }
 
         dataOffset++;

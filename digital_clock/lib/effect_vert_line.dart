@@ -18,7 +18,7 @@ class EffectVerticalLine extends Effect {
   @override
   bool drawFrame(bool updateNeeded) {
     // No need to call the base class, since it doesn't do anything.
-    pegBoard.fillPegArea(currentColumn, 0, 1, PegBoard.pegHeight, Colors.white, PegType.background);
+    pegBoard.fillPegArea(currentColumn, 0, 1, PegBoard.pegHeight, Colors.white);
 
     if (updateNeeded) {
       // Update the column
