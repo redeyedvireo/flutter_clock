@@ -5,12 +5,14 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:digital_clock/effects_manager.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'peg_widget.dart';
 import 'peg_board.dart';
+import 'effects_manager.dart';
 
 
 enum _Element {
@@ -52,6 +54,7 @@ class _DigitalClockState extends State<DigitalClock> {
   int _pegWidth;
   Map<int, PegWidget>   _pegWidgets;
   PegBoard pegBoard = new PegBoard();
+  EffectsManager effectsManager = new EffectsManager();
 
   @override
   void initState() {
@@ -62,6 +65,10 @@ class _DigitalClockState extends State<DigitalClock> {
     _updateModel();
 
     _pegWidgets = {};
+
+    effectsManager.pegBoard = pegBoard;
+
+    effectsManager.addVerticalLineEffect(250);
   }
 
   @override
@@ -143,6 +150,8 @@ class _DigitalClockState extends State<DigitalClock> {
     _calculatePegWidth(context);
 
     pegBoard.drawBackground();
+
+    effectsManager.next();
 
     // Extract time digits
     int h0 = 0;
