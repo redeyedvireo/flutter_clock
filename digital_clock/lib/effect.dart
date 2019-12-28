@@ -4,9 +4,6 @@ import 'peg_board.dart';
 class Effect {
   PegBoard pegBoard;
 
-  // Function called by the effect when the effect is finished.
-  Function done;
-
   // Duration of each frame, in milliseconds.
   int frameDuration;
 
@@ -18,7 +15,14 @@ class Effect {
   // Triggers the effect to start the next frame in its animation.
   // Return value: true if the effect is still active, false if the effect is finished.
   bool next() {
-    bool needsDrawing = true;
+    final needsUpdate = isTimeForUpdate();
+
+    return drawFrame(needsUpdate);
+  }
+
+  /// Determines if it is time to update the frame.
+  bool isTimeForUpdate() {
+    bool needsUpdate = false;
 
     if (timeOfCurrentFrame == null) {
       // First time this frame has been drawn.
@@ -29,7 +33,7 @@ class Effect {
 
       if (currently.isAtSameMomentAs(timeOfNextFrame) || currently.isAfter(timeOfNextFrame)) {
         // The current time is at or after the time at which the new frame needs to be drawn.
-        needsDrawing = true;
+        needsUpdate = true;
 
         // Compute time at which the next frame should be drawn
 
@@ -40,20 +44,17 @@ class Effect {
         timeOfNextFrame = currently.add(Duration(milliseconds: remainingMilliseconds));
         timeOfCurrentFrame = currently;
       } else {
-        needsDrawing = false;
+        needsUpdate = false;
       }
     }
 
-    if (needsDrawing) {
-      return drawFrame();
-    }
-
-    return true;
+    return needsUpdate;
   }
 
   // Will be overridden by subclasses
+  // The updateNeeded parameter indicates if the frame needs to be updated.
   // Return value: true if the effect is still active, false if the effect is finished.
-  bool drawFrame() {
+  bool drawFrame(bool updateNeeded) {
     return false;
   }
 }

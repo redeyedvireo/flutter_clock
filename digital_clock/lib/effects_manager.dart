@@ -7,8 +7,11 @@ import 'effect_vert_line.dart';
 class EffectsManager {
   PegBoard pegBoard;
   List<Effect> effects = [];
+  DateTime _lastEffectUpdateTime;
 
-  EffectsManager() { }
+  EffectsManager() {
+    _lastEffectUpdateTime = DateTime.now();
+  }
 
   void addVerticalLineEffect(int frameDuration) {
     final effect = EffectVerticalLine(pegBoard, frameDuration);
@@ -46,6 +49,8 @@ class EffectsManager {
       if (effect != null) {
         final stillActive = effect.next();
 
+        _lastEffectUpdateTime = DateTime.now();
+
         if (!stillActive) {
           // Effect is done - add it to the list of effects to remove
           finishedEffectIndexes.add(index);
@@ -57,5 +62,17 @@ class EffectsManager {
     finishedEffectIndexes.forEach((int index) {
       effects[index] = null;
     });
+
+    _checkIfTimeToSpawnNewEffect();
+  }
+
+  /// Check if a new effect should be spawned.
+  void _checkIfTimeToSpawnNewEffect() {
+    final timePassedSinceLastEffectUpdate = DateTime.now().difference(_lastEffectUpdateTime);
+
+    if (timePassedSinceLastEffectUpdate.inSeconds >= 5) {
+      // There has not been an effect in a while.  Spawn a new one.
+      addVerticalLineEffect(150);
+    }
   }
 }
