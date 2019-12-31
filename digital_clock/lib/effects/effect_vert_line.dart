@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:digital_clock/effect.dart';
+import 'package:digital_clock/effects/effect.dart';
 import 'package:digital_clock/peg_board.dart';
-import 'peg_data.dart';
 
 class EffectVerticalLine extends Effect {
 

@@ -1,13 +1,15 @@
 import 'package:digital_clock/peg_board.dart';
-import 'package:flutter/material.dart';
 
+import '../elapsed_time.dart';
 import 'effect.dart';
 import 'effect_vert_line.dart';
+import 'effect_flash_background.dart';
 
 class EffectsManager {
   PegBoard pegBoard;
   List<Effect> effects = [];
   DateTime _lastEffectUpdateTime;
+  ElapsedTime _elapsedTime = ElapsedTime(targetMilliseconds: 10000);
 
   EffectsManager() {
     _lastEffectUpdateTime = DateTime.now();
@@ -15,6 +17,11 @@ class EffectsManager {
 
   void addVerticalLineEffect(int frameDuration) {
     final effect = EffectVerticalLine(pegBoard, frameDuration);
+    _addEffect(effect);
+  }
+
+  void addFlashingBackgroundEffect(int frameDuration) {
+    final effect = EffectFlashBackground(pegBoard, frameDuration);
     _addEffect(effect);
   }
 
@@ -68,11 +75,9 @@ class EffectsManager {
 
   /// Check if a new effect should be spawned.
   void _checkIfTimeToSpawnNewEffect() {
-    final timePassedSinceLastEffectUpdate = DateTime.now().difference(_lastEffectUpdateTime);
-
-    if (timePassedSinceLastEffectUpdate.inSeconds >= 5) {
-      // There has not been an effect in a while.  Spawn a new one.
-      addVerticalLineEffect(150);
+    if (_elapsedTime.timesUp()) {
+      addFlashingBackgroundEffect(125);
+      _elapsedTime.reset();
     }
   }
 }

@@ -5,14 +5,14 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:digital_clock/effects_manager.dart';
+import 'package:digital_clock/effects/effects_manager.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'peg_widget.dart';
 import 'peg_board.dart';
-import 'effects_manager.dart';
+import 'effects/effects_manager.dart';
 
 
 enum _Element {
@@ -35,7 +35,7 @@ final _darkTheme = {
 
 final borderPerDimension = 4;
 
-final framesPerSecond = 8;
+final framesPerSecond = 10;
 
 /// A basic digital clock.
 ///
@@ -69,7 +69,8 @@ class _DigitalClockState extends State<DigitalClock> {
 
     effectsManager.pegBoard = pegBoard;
 
-    effectsManager.addVerticalLineEffect(150);
+//    effectsManager.addVerticalLineEffect(150);
+    effectsManager.addFlashingBackgroundEffect(125);
   }
 
   @override

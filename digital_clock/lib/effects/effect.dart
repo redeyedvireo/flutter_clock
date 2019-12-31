@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'peg_board.dart';
+import '../peg_board.dart';
 
 class Effect {
   PegBoard pegBoard;
