@@ -4,6 +4,13 @@ import '../elapsed_time.dart';
 import 'effect.dart';
 import 'effect_vert_line.dart';
 import 'effect_flash_background.dart';
+import 'effect_expanding_box.dart';
+
+enum EffectType {
+  verticalLine,
+  flashingBackground,
+  expandingBox
+}
 
 class EffectsManager {
   PegBoard pegBoard;
@@ -15,13 +22,23 @@ class EffectsManager {
     _lastEffectUpdateTime = DateTime.now();
   }
 
-  void addVerticalLineEffect(int frameDuration) {
-    final effect = EffectVerticalLine(pegBoard, frameDuration);
-    _addEffect(effect);
-  }
+  void newEffect(EffectType effectType, int frameDuration) {
+    Effect effect;
 
-  void addFlashingBackgroundEffect(int frameDuration) {
-    final effect = EffectFlashBackground(pegBoard, frameDuration);
+    switch (effectType) {
+      case EffectType.verticalLine:
+        effect = EffectVerticalLine(pegBoard, frameDuration);
+        break;
+
+      case EffectType.flashingBackground:
+        effect = EffectFlashBackground(pegBoard, frameDuration);
+        break;
+
+      case EffectType.expandingBox:
+        effect = EffectExpandingBox(pegBoard, frameDuration);
+        break;
+    }
+
     _addEffect(effect);
   }
 
@@ -76,7 +93,7 @@ class EffectsManager {
   /// Check if a new effect should be spawned.
   void _checkIfTimeToSpawnNewEffect() {
     if (_elapsedTime.timesUp()) {
-      addFlashingBackgroundEffect(125);
+      newEffect(EffectType.expandingBox, 200);
       _elapsedTime.reset();
     }
   }

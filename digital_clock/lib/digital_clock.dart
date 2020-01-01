@@ -69,8 +69,7 @@ class _DigitalClockState extends State<DigitalClock> {
 
     effectsManager.pegBoard = pegBoard;
 
-//    effectsManager.addVerticalLineEffect(150);
-    effectsManager.addFlashingBackgroundEffect(125);
+    effectsManager.newEffect(EffectType.expandingBox, 200);
   }
 
   @override

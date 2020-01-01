@@ -75,7 +75,7 @@ class PegBoard {
 
   PegData getPeg(int index) => _pegs[index];
 
-  Color _randomColor(double opacity) {
+  Color randomColor(double opacity) {
     final red = _random.nextInt(256);
     final green = _random.nextInt(256);
     final blue = _random.nextInt(256);
@@ -86,7 +86,7 @@ class PegBoard {
   // Set pegs to a random color
   void generateRandomBoard() {
     for (int i = 0; i < totalPegs; i++) {
-      _pegs[i].pegColor = _randomColor(1.0);
+      _pegs[i].pegColor = randomColor(1.0);
     }
   }
 
@@ -126,7 +126,7 @@ class PegBoard {
   }
 
   void setRandomBackgroundColor(double opacity) {
-    globalBackgroundColor = _randomColor(opacity);
+    globalBackgroundColor = randomColor(opacity);
 
     redDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
     blueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
@@ -134,7 +134,7 @@ class PegBoard {
   }
 
   void setRandomDigitColor() {
-    digitColor = _randomColor(1.0);
+    digitColor = randomColor(1.0);
 
     digitRedDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
     digitBlueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
@@ -223,6 +223,33 @@ class PegBoard {
       leftPegId += pegWidth;
       curPegId = leftPegId;
     }
+  }
+
+  void drawHLine(int x, int y, int length, Color color) {
+    int leftPegId = _pegId(x, y);
+    int curPegId = leftPegId;
+
+    for (int i = 0; i < length; i++) {
+      _pegs[curPegId++].pegColor = color;
+    }
+  }
+
+  void drawVLine(int x, int y, int length, Color color) {
+    int leftPegId = _pegId(x, y);
+    int curPegId = leftPegId;
+
+    for (int i = 0; i < length; i++) {
+      _pegs[curPegId].pegColor = color;
+      curPegId += pegWidth;
+    }
+  }
+
+  void drawBox(int x, int y, int width, int height, Color color) {
+    drawHLine(x, y, width, color);
+    drawHLine(x, y + height - 1, width, color);
+
+    drawVLine(x, y + 1, height - 2, color);
+    drawVLine(x + width - 1, y + 1, height - 2, color);
   }
 
   void placeNumberOnSlot(int slot, int number) {
