@@ -5,11 +5,13 @@ import 'effect.dart';
 import 'effect_vert_line.dart';
 import 'effect_flash_background.dart';
 import 'effect_expanding_box.dart';
+import 'effect_expanding_filled_box.dart';
 
 enum EffectType {
   verticalLine,
   flashingBackground,
-  expandingBox
+  expandingBox,
+  expandingFilledBox
 }
 
 class EffectsManager {
@@ -36,6 +38,10 @@ class EffectsManager {
 
       case EffectType.expandingBox:
         effect = EffectExpandingBox(pegBoard, frameDuration);
+        break;
+
+      case EffectType.expandingFilledBox:
+        effect = EffectExpandingFilledBox(pegBoard, frameDuration);
         break;
     }
 
@@ -93,7 +99,7 @@ class EffectsManager {
   /// Check if a new effect should be spawned.
   void _checkIfTimeToSpawnNewEffect() {
     if (_elapsedTime.timesUp()) {
-      newEffect(EffectType.expandingBox, 200);
+      newEffect(EffectType.expandingFilledBox, 200);
       _elapsedTime.reset();
     }
   }
