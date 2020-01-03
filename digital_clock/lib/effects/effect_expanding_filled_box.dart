@@ -39,7 +39,14 @@ class EffectExpandingFilledBox extends Effect {
   }
 
   void _createNewBox(Color color) {
-    BoxData boxData = BoxData(9, 12, 8, 2, color, pegBoard);
+    final initialBoxHeight = 2;
+    final initialBoxY = (PegBoard.pegHeight - initialBoxHeight) ~/ 2;
+
+    final initialBoxX = initialBoxY;
+    final initialBoxWidth = PegBoard.pegWidth - 2 * initialBoxX;
+
+    BoxData boxData = BoxData(initialBoxX, initialBoxWidth,
+                              initialBoxY, initialBoxHeight, color, pegBoard);
     _boxData.add(boxData);
   }
 
