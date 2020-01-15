@@ -177,7 +177,11 @@ class _DigitalClockState extends State<DigitalClock> {
 
     pegBoard.drawColon();
 
-    pegBoard.placeNumberOnSlot(0, h0);
+    if (h0 > 0) {
+      // Hide leading zeros
+      pegBoard.placeNumberOnSlot(0, h0);
+    }
+
     pegBoard.placeNumberOnSlot(1, h1);
     pegBoard.placeNumberOnSlot(2, m0);
     pegBoard.placeNumberOnSlot(3, m1);
