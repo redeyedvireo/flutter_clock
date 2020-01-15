@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:digital_clock/backgrounds/background_manager.dart';
 import 'package:digital_clock/effects/effects_manager.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'peg_widget.dart';
 import 'peg_board.dart';
 import 'effects/effects_manager.dart';
+import 'backgrounds/background_manager.dart';
 
 
 enum _Element {
@@ -55,7 +57,8 @@ class _DigitalClockState extends State<DigitalClock> {
   int _pegWidth;
   Map<int, PegWidget>   _pegWidgets;
   PegBoard pegBoard = new PegBoard();
-  EffectsManager effectsManager = new EffectsManager();
+  EffectsManager effectsManager = EffectsManager();
+  BackgroundManager backgroundManager = BackgroundManager();
 
   @override
   void initState() {
@@ -68,6 +71,9 @@ class _DigitalClockState extends State<DigitalClock> {
     _pegWidgets = {};
 
     effectsManager.pegBoard = pegBoard;
+    backgroundManager.pegBoard = pegBoard;
+
+    backgroundManager.createBackgrounds();
 
     effectsManager.newEffect(EffectType.expandingFilledBox, 200);
   }
@@ -151,7 +157,7 @@ class _DigitalClockState extends State<DigitalClock> {
 
     _calculatePegWidth(context);
 
-    pegBoard.drawBackground();
+    backgroundManager.drawBackground();
 
     effectsManager.next();
 
