@@ -114,30 +114,11 @@ class PegBoard {
     digitGreenDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
   }
   
-  int _pegId(int x, int y) => y * pegWidth + x;
+  int pegId(int x, int y) => y * pegWidth + x;
 
   void _drawBackgroundWithColorCycler() {
     fillPegArea(0, 0, pegWidth, pegHeight, colorCycler.color);
     colorCycler.next();
-  }
-
-  void _drawBackgroundWithFader() {
-    final colorFader = ColorFader(color: globalBackgroundColor, redDelta: redDelta, blueDelta: blueDelta, greenDelta: greenDelta);
-
-    int leftPegId = _pegId(0, 0);
-    int curPegId = leftPegId;
-
-    for (int i = 0; i < pegHeight; i++) {
-      for (int j = 0; j < pegWidth; j++) {
-        // _pegs[curPegId].setPegType(PegData.blankPeg, PegType.background);   // DEBUG
-        _pegs[curPegId].pegColor = colorFader.color;
-        curPegId++;
-      }
-
-      leftPegId += pegWidth;
-      curPegId = leftPegId;
-      colorFader.nextStep();
-    }
   }
 
   void clearBorder(int borderWidth) {
@@ -159,7 +140,7 @@ class PegBoard {
   }
 
   void fillPegArea(int x, int y, int width, int height, Color color) {
-    int leftPegId = _pegId(x, y);
+    int leftPegId = pegId(x, y);
     int curPegId = leftPegId;
 
     for (int i = 0; i < height; i++) {
@@ -174,7 +155,7 @@ class PegBoard {
   }
 
   void drawHLine(int x, int y, int length, Color color) {
-    int leftPegId = _pegId(x, y);
+    int leftPegId = pegId(x, y);
     int curPegId = leftPegId;
 
     for (int i = 0; i < length; i++) {
@@ -183,7 +164,7 @@ class PegBoard {
   }
 
   void drawVLine(int x, int y, int length, Color color) {
-    int leftPegId = _pegId(x, y);
+    int leftPegId = pegId(x, y);
     int curPegId = leftPegId;
 
     for (int i = 0; i < length; i++) {
@@ -212,7 +193,7 @@ class PegBoard {
     final rowOffset = (pegHeight - height) ~/ 2;
     final colorFader = ColorFader(color: digitColor, redDelta: digitRedDelta, blueDelta: digitBlueDelta, greenDelta: digitGreenDelta);
 
-    int leftPegId = _pegId(x, rowOffset);
+    int leftPegId = pegId(x, rowOffset);
     int curPegId = leftPegId;
 
     int dataOffset = 0;
