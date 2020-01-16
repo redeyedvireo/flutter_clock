@@ -1,8 +1,9 @@
-import 'package:digital_clock/backgrounds/background_color_fader.dart';
-
 import 'package:digital_clock/peg_board.dart';
 
 import 'background_gradient.dart';
+import 'background_color_cycler.dart';
+import 'background_color_fader.dart';
+
 
 // Interface class for backgrounds
 class IBackground {
@@ -15,13 +16,14 @@ class IBackground {
 class BackgroundManager {
   PegBoard pegBoard;
   List<IBackground> backgrounds = [];
-  int currentBackground = 1;
+  int currentBackground = 2;
 
   BackgroundManager();
 
   void createBackgrounds() {
     backgrounds.add(BackgroundGradient(pegBoard: pegBoard));
     backgrounds.add(BackgroundColorFader(pegBoard: pegBoard));
+    backgrounds.add(BackgroundColorCycler(pegBoard: pegBoard));
   }
 
   void drawBackground() {

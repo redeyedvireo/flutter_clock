@@ -1,14 +1,11 @@
 // Keeps track of the entire board.  Kinda like an off-screen buffer, but for pegs.
 
-import 'package:digital_clock/color_cyler.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'peg_data.dart';
 import 'numbers.dart';
 import 'color_fader.dart';
-import 'color_gradient.dart';
-import 'elapsed_time.dart';
 
 
 class PegBoard {
@@ -31,18 +28,10 @@ class PegBoard {
   Color globalBackgroundColor = PegData.blankPeg;
   Color digitColor = PegData.whitePeg;
 
-  // Color deltas for background color 
-  int redDelta = 0;
-  int blueDelta = 0;
-  int greenDelta = 0;
-  
   // Color deltas for digit color
   int digitRedDelta = 0;
   int digitBlueDelta = 0;
   int digitGreenDelta = 0;
-
-  ColorCycler colorCycler;
-  double colorCycleScaleFactor = 20.0;
 
   Map<int, PegData>   _pegs = {};
 
@@ -52,14 +41,6 @@ class PegBoard {
     _initDigits();
     _initBackground();
     setRandomDigitColor();
-
-    colorCycler = ColorCycler(redMin: 100, redMax: 150,
-                              greenMin: 100, greenMax: 150,
-                              blueMin: 100, blueMax: 150,
-                              redDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
-                              greenDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
-                              blueDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
-                              alpha: 150);
 
     // Create pegs
     for (int i = 0; i < totalPegs; i++) {
@@ -100,10 +81,6 @@ class PegBoard {
 
   void setRandomBackgroundColor(double opacity) {
     globalBackgroundColor = randomColor(opacity);
-
-    redDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
-    blueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
-    greenDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
   }
 
   void setRandomDigitColor() {
@@ -115,11 +92,6 @@ class PegBoard {
   }
   
   int pegId(int x, int y) => y * pegWidth + x;
-
-  void _drawBackgroundWithColorCycler() {
-    fillPegArea(0, 0, pegWidth, pegHeight, colorCycler.color);
-    colorCycler.next();
-  }
 
   void clearBorder(int borderWidth) {
     // Top row
