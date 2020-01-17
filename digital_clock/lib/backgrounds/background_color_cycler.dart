@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:digital_clock/peg_board.dart';
-import 'package:flutter/cupertino.dart';
 import '../color_cyler.dart';
 
 import 'background_manager.dart';

@@ -3,7 +3,7 @@ import 'package:digital_clock/peg_board.dart';
 import 'background_gradient.dart';
 import 'background_color_cycler.dart';
 import 'background_color_fader.dart';
-
+import 'background_stars.dart';
 
 // Interface class for backgrounds
 class IBackground {
@@ -16,7 +16,7 @@ class IBackground {
 class BackgroundManager {
   PegBoard pegBoard;
   List<IBackground> backgrounds = [];
-  int currentBackground = 2;
+  int currentBackground = 3;
 
   BackgroundManager();
 
@@ -24,7 +24,12 @@ class BackgroundManager {
     backgrounds.add(BackgroundGradient(pegBoard: pegBoard));
     backgrounds.add(BackgroundColorFader(pegBoard: pegBoard));
     backgrounds.add(BackgroundColorCycler(pegBoard: pegBoard));
+    backgrounds.add(BackgroundStars(pegBoard: pegBoard));
   }
+
+
+  // TODO: Change background periodically - every hour perhaps?
+
 
   void drawBackground() {
     if (backgrounds.length > 0) {
