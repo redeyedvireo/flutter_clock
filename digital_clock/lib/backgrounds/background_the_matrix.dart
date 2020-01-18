@@ -15,8 +15,6 @@ class BackgroundTheMatrix implements IBackground {
   PegBoard pegBoard;
   Random _random;
   Sprite _sprite;
-  int _spriteX;
-  int _spriteY;
   static int numSprites = 10;
   List<SpriteMover> _spriteMovers;
   ElapsedTime _elapsedTime;
@@ -67,12 +65,12 @@ class BackgroundTheMatrix implements IBackground {
   }
 
   SpriteMover _createSpriteMover(int id) {
-    _spriteX = _random.nextInt(PegBoard.pegWidth);
-    _spriteY = -(_random.nextInt(3) + 3);
+    int x = _random.nextInt(PegBoard.pegWidth);
+    int y = -(_random.nextInt(3) + 3);
 
     return SpriteMover(sprite: _sprite,
                         id: id,
-                        start: Coord(_spriteX, _spriteY),
+                        start: Coord(x, y),
                         increment: Coord(0, 1),
                         frameMs: 300,
                         isDone: isDone,
@@ -85,7 +83,6 @@ class BackgroundTheMatrix implements IBackground {
   }
 
   void spriteFinished(int id) {
-//    _spriteMovers[id] = _createSpriteMover(id);
     _spriteMovers[id] = null;
   }
 
