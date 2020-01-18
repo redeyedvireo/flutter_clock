@@ -105,7 +105,7 @@ class BackgroundStars implements IBackground {
 
   void draw() {
     for (int i = 0; i < pegBoard.totalPegs; i++) {
-      pegBoard.getPeg(i).pegColor = PegData.blankPeg;
+      pegBoard.getPeg(i).pegColor = PegData.blackPeg;
     }
 
     List<int> starIndexesToRemove = [];

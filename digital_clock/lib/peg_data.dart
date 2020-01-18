@@ -9,6 +9,7 @@ enum PegType {
 class PegData {
   static const blankPeg = Color.fromRGBO(0, 0, 0, 0.0);
   static const whitePeg = Colors.white;
+  static const blackPeg = Colors.black;
 
   Color pegColor = blankPeg;
 
