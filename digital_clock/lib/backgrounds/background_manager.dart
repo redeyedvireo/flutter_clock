@@ -4,6 +4,8 @@ import 'background_gradient.dart';
 import 'background_color_cycler.dart';
 import 'background_color_fader.dart';
 import 'background_stars.dart';
+import 'background_the_matrix.dart';
+
 
 // Interface class for backgrounds
 class IBackground {
@@ -16,7 +18,7 @@ class IBackground {
 class BackgroundManager {
   PegBoard pegBoard;
   List<IBackground> backgrounds = [];
-  int currentBackground = 3;
+  int currentBackground = 4;
 
   BackgroundManager();
 
@@ -25,6 +27,7 @@ class BackgroundManager {
     backgrounds.add(BackgroundColorFader(pegBoard: pegBoard));
     backgrounds.add(BackgroundColorCycler(pegBoard: pegBoard));
     backgrounds.add(BackgroundStars(pegBoard: pegBoard));
+    backgrounds.add(BackgroundTheMatrix(pegBoard: pegBoard));
   }
 
 
