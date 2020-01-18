@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'coord.dart';
 import 'peg_data.dart';
 import 'numbers.dart';
 import 'color_fader.dart';
@@ -11,6 +12,7 @@ import 'color_fader.dart';
 class PegBoard {
   static const pegWidth = 30;
   static const pegHeight = 18;
+  static const maxPegId = pegWidth * pegHeight - 1;
   static const numberWidth = 6;     // Width of a number, in pegs
   static const numberHeight = 11;   // Height of a number, in pegs
   static const spaceWidth = 2;      // Width of space, in pegs
@@ -92,6 +94,7 @@ class PegBoard {
   }
   
   int pegId(int x, int y) => y * pegWidth + x;
+  int pegIdCoord(Coord c) => c.y * pegWidth + c.x;
 
   void clearBorder(int borderWidth) {
     // Top row
