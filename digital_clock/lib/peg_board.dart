@@ -60,6 +60,14 @@ class PegBoard {
     return Color.fromRGBO(red, green, blue, opacity);
   }
 
+  Color randomBrightColor(double opacity) {
+    final red = _random.nextInt(156) + 100;
+    final green = _random.nextInt(156) + 100;
+    final blue = _random.nextInt(156) + 100;
+
+    return Color.fromRGBO(red, green, blue, opacity);
+  }
+
   // Set pegs to a random color
   void generateRandomBoard() {
     for (int i = 0; i < totalPegs; i++) {
@@ -129,6 +137,24 @@ class PegBoard {
     }
   }
 
+  void fillPegAreaWithColorFader(int x, int y, int width, int height, ColorFader colorFader) {
+    int leftPegId = pegId(x, y);
+    int curPegId = leftPegId;
+
+    colorFader.start();
+
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        _pegs[curPegId].pegColor = colorFader.color;
+        curPegId++;
+      }
+
+      leftPegId += pegWidth;
+      curPegId = leftPegId;
+      colorFader.nextStep();
+    }
+  }
+
   void drawHLine(int x, int y, int length, Color color) {
     int leftPegId = pegId(x, y);
     int curPegId = leftPegId;
@@ -166,7 +192,7 @@ class PegBoard {
 
   void _drawDigit(int x, int width, int height, List<int> data) {
     final rowOffset = (pegHeight - height) ~/ 2;
-    final colorFader = ColorFader(color: digitColor, redDelta: digitRedDelta, blueDelta: digitBlueDelta, greenDelta: digitGreenDelta);
+    final colorFader = ColorFader(startColor: digitColor, redDelta: digitRedDelta, blueDelta: digitBlueDelta, greenDelta: digitGreenDelta);
 
     int leftPegId = pegId(x, rowOffset);
     int curPegId = leftPegId;
