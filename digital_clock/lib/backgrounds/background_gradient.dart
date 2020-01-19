@@ -21,7 +21,7 @@ class BackgroundGradient implements IBackground {
       _currentStop = 0;
       _currentPositionInStop = 0;
 
-      _backgroundUpdateElapsedTime = ElapsedTime(targetMilliseconds: 1000);
+      _backgroundUpdateElapsedTime = ElapsedTime(targetMilliseconds: 5000);
 
       // Color values are from: https://en.wikipedia.org/wiki/RGB_color_model
       colorGradient = ColorGradient(colorStops: [
