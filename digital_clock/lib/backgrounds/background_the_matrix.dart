@@ -4,8 +4,8 @@ import 'dart:math';
 import '../peg_board.dart';
 import '../peg_data.dart';
 import '../coord.dart';
-import '../sprite.dart';
-import '../sprite_mover.dart';
+import '../sprites/sprite.dart';
+import '../sprites/sprite_mover.dart';
 import '../elapsed_time.dart';
 
 import 'background_manager.dart';
@@ -68,7 +68,7 @@ class BackgroundTheMatrix implements IBackground {
     int x = _random.nextInt(PegBoard.pegWidth);
     int y = -(_random.nextInt(3) + 3);
 
-    return SpriteMover(sprite: _sprite,
+    return SpriteMover(spriteList: [_sprite],
                         id: id,
                         start: Coord(x, y),
                         increment: Coord(0, 1),
