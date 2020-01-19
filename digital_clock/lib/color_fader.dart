@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class ColorFader {
+  Color startColor;
   Color color;
 
   int redDelta = 0;
@@ -9,11 +10,17 @@ class ColorFader {
   int blueDelta = 0;
   int alphaDelta = 0;
 
-  ColorFader({@required this.color,
+  ColorFader({@required this.startColor,
               this.redDelta = 0,
               this.greenDelta = 0,
               this.blueDelta = 0,
-              this.alphaDelta = 0});
+              this.alphaDelta = 0}) {
+    start();
+  }
+
+  void start() {
+    color = startColor;
+  }
 
   Color nextStep() {
     final nextRed = min(max(color.red + redDelta, 0), 255);

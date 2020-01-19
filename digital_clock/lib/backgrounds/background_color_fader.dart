@@ -24,7 +24,7 @@ class BackgroundColorFader implements IBackground {
   }
 
   void draw() {
-    final colorFader = ColorFader(color: pegBoard.globalBackgroundColor, redDelta: redDelta, blueDelta: blueDelta, greenDelta: greenDelta);
+    final colorFader = ColorFader(startColor: pegBoard.globalBackgroundColor, redDelta: redDelta, blueDelta: blueDelta, greenDelta: greenDelta);
 
     int leftPegId = pegBoard.pegId(0, 0);
     int curPegId = leftPegId;
