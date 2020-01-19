@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'peg_board.dart';
-import 'coord.dart';
+import '../peg_board.dart';
+import '../coord.dart';
 
 
 /// A single peg of a sprite.  The x, y coordinates are local coordinates.
@@ -25,9 +25,11 @@ class Sprite {
 
     spriteElements.forEach((spriteElement) {
       final pegBoardPos = spriteElement.coord + spritePos;
-      final pegId = pegBoard.pegIdCoord(pegBoardPos);
 
-      if (pegId >= 0 && pegId <= PegBoard.maxPegId) {
+      if (pegBoardPos.x >= 0 && pegBoardPos.x < PegBoard.pegWidth &&
+          pegBoardPos.y >= 0 && pegBoardPos.y < PegBoard.pegHeight) {
+        final pegId = pegBoard.pegIdCoord(pegBoardPos);
+
         pegBoard.getPeg(pegId).pegColor = spriteElement.color;
       }
     });
