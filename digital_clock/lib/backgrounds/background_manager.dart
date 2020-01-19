@@ -5,6 +5,7 @@ import 'background_color_cycler.dart';
 import 'background_color_fader.dart';
 import 'background_stars.dart';
 import 'background_the_matrix.dart';
+import 'background_aquarium.dart';
 
 
 // Interface class for backgrounds
@@ -18,7 +19,7 @@ class IBackground {
 class BackgroundManager {
   PegBoard pegBoard;
   List<IBackground> backgrounds = [];
-  int currentBackground = 4;
+  int currentBackground = 5;
 
   BackgroundManager();
 
@@ -28,6 +29,7 @@ class BackgroundManager {
     backgrounds.add(BackgroundColorCycler(pegBoard: pegBoard));
     backgrounds.add(BackgroundStars(pegBoard: pegBoard));
     backgrounds.add(BackgroundTheMatrix(pegBoard: pegBoard));
+    backgrounds.add(BackgroundAquarium(pegBoard: pegBoard));
   }
 
 
