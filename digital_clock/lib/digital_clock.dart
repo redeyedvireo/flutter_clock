@@ -59,6 +59,7 @@ class _DigitalClockState extends State<DigitalClock> {
   PegBoard pegBoard = new PegBoard();
   EffectsManager effectsManager = EffectsManager();
   BackgroundManager backgroundManager = BackgroundManager();
+  bool timeEffectStarted = false;
 
   @override
   void initState() {
@@ -192,20 +193,22 @@ class _DigitalClockState extends State<DigitalClock> {
     pegBoard.placeNumberOnSlot(2, m0);
     pegBoard.placeNumberOnSlot(3, m1);
 
-//    pegBoard.placeNumberOnSlot(0, 1);
-//    pegBoard.placeNumberOnSlot(1, 2);
-//    pegBoard.placeNumberOnSlot(2, 3);
-//    pegBoard.placeNumberOnSlot(3, 4);
-
-//    pegBoard.placeNumberOnSlot(0, 5);
-//    pegBoard.placeNumberOnSlot(1, 6);
-//    pegBoard.placeNumberOnSlot(2, 7);
-//    pegBoard.placeNumberOnSlot(3, 8);
-
-//    pegBoard.placeNumberOnSlot(0, 4);
-//    pegBoard.placeNumberOnSlot(1, 3);
-//    pegBoard.placeNumberOnSlot(2, 6);
-//    pegBoard.placeNumberOnSlot(3, 9);
+    // Start an effect at xx:00, xx:15, xx:30, and xx:45
+    if (m0 == 0 && m1 == 0) {
+      // Top of the hour
+      if (!timeEffectStarted) {
+        effectsManager.newEffect(EffectType.expandingFilledBox, 200);
+        timeEffectStarted = true;
+      }
+    } else if ((m0 == 1 && m1 == 5) || (m0 == 3 && m1 == 0) || (m0 == 4 && m1 == 5)) {
+      // Quarter hour
+      if (!timeEffectStarted) {
+        effectsManager.newEffect(EffectType.flashingBackground, 200);
+        timeEffectStarted = true;
+      }
+    } else {
+      timeEffectStarted = false;
+    }
 
     return Container(
       color: colors[_Element.background],

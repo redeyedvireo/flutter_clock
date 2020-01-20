@@ -92,15 +92,5 @@ class EffectsManager {
     finishedEffectIndexes.forEach((int index) {
       effects[index] = null;
     });
-
-    _checkIfTimeToSpawnNewEffect();
-  }
-
-  /// Check if a new effect should be spawned.
-  void _checkIfTimeToSpawnNewEffect() {
-    if (_elapsedTime.timesUp()) {
-      newEffect(EffectType.expandingFilledBox, 200);
-      _elapsedTime.reset();
-    }
   }
 }
