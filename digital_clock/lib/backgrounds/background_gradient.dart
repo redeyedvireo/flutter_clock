@@ -23,7 +23,7 @@ class BackgroundGradient implements IBackground {
   BackgroundGradient({@required this.pegBoard}) {
     _random = Random(DateTime.now().second);
 
-    _currentStop = _random.nextInt(12);
+    _currentStop = 0;
     _currentPositionInStop = 0;
 
     _backgroundUpdateElapsedTime = ElapsedTime(targetMilliseconds: 5000);
@@ -43,6 +43,9 @@ class BackgroundGradient implements IBackground {
       Color.fromARGB(255, 255, 0, 127),       // Rose
       Color.fromARGB(255, 255, 0, 255),       // Magenta
     ], stepsPerStop: _backgroundGradientSteps);
+
+    // Set gradient to a random position
+    colorGradient.resetPosition(stop: _random.nextInt(12));
   }
 
   void draw() {
