@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum ColorElement {
-  red,
-  green,
-  blue
-}
+enum ColorElement { red, green, blue }
 
 class ColorCycler {
   double redMin;
@@ -33,16 +29,17 @@ class ColorCycler {
 
   Color color;
 
-  ColorCycler({@required this.redMin,
-                @required this.redMax,
-                @required this.greenMin,
-                @required this.greenMax,
-                @required this.blueMin,
-                @required this.blueMax,
-                @required this.redDelta,
-                @required this.greenDelta,
-                @required this.blueDelta,
-                @required this.alpha}) {
+  ColorCycler(
+      {@required this.redMin,
+      @required this.redMax,
+      @required this.greenMin,
+      @required this.greenMax,
+      @required this.blueMin,
+      @required this.blueMax,
+      @required this.redDelta,
+      @required this.greenDelta,
+      @required this.blueDelta,
+      @required this.alpha}) {
     // Set initial color
     _red = redMin;
     _green = greenMin;
@@ -59,30 +56,31 @@ class ColorCycler {
   }
 
   void _buildColor() {
-    color = Color.fromARGB(alpha.round(), _red.round(), _green.round(), _blue.round());
+    color = Color.fromARGB(
+        alpha.round(), _red.round(), _green.round(), _blue.round());
   }
 
   void next() {
-    
-    final returnArray = _stepColor(_minValue, _maxValue, _currentValue, _increment);
+    final returnArray =
+        _stepColor(_minValue, _maxValue, _currentValue, _increment);
     _currentValue = returnArray[0];
 
     switch (_colorElement) {
       case ColorElement.red:
         _red = _currentValue;
         break;
-        
+
       case ColorElement.green:
         _green = _currentValue;
         break;
-        
+
       case ColorElement.blue:
         _blue = _currentValue;
         break;
     }
-    
+
     _buildColor();
-    
+
     if (!returnArray[1]) {
       // Reverse direction of increment for current color element
       _increment *= -1;
@@ -110,7 +108,8 @@ class ColorCycler {
   //    [ newCurrentValue, boolean indicating if this color element should continue
   //    to be used for the next color cycling step. ]
   //
-  List _stepColor(double minValue, double maxValue, double currentValue, double increment) {
+  List _stepColor(
+      double minValue, double maxValue, double currentValue, double increment) {
     double tempValue = currentValue + increment;
 
     if (increment > 0) {
@@ -129,15 +128,15 @@ class ColorCycler {
       }
     }
   }
-  
+
   ColorElement _nextColorElement() {
     switch (_colorElement) {
       case ColorElement.red:
         return ColorElement.green;
-        
+
       case ColorElement.green:
         return ColorElement.blue;
-        
+
       case ColorElement.blue:
         return ColorElement.red;
 

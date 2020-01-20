@@ -4,10 +4,10 @@ import 'dart:math';
 import 'color_increment.dart';
 
 class ColorGradient {
-  List<Color> colorStops;       // Colors at each gradient "stop"
-  int stepsPerStop;             // Number of steps to get from one stop to the next
+  List<Color> colorStops; // Colors at each gradient "stop"
+  int stepsPerStop; // Number of steps to get from one stop to the next
 
-  int _currentPosition = 0;     // Position within a stop
+  int _currentPosition = 0; // Position within a stop
   int _currentStop = 0;
   Color _currentColor = Colors.black;
 
@@ -29,19 +29,27 @@ class ColorGradient {
     }
 
     // Add increment from last color to first color
-    final colorIncrement = _computeIncrement(colorStops[colorStops.length - 1], colorStops[0]);
+    final colorIncrement =
+        _computeIncrement(colorStops[colorStops.length - 1], colorStops[0]);
     _increments.add(colorIncrement);
   }
 
   ColorIncrement _computeIncrement(Color startColor, Color endColor) {
     double redDelta = _computeDelta(startColor.red, endColor.red, stepsPerStop);
-    double greenDelta = _computeDelta(startColor.green, endColor.green, stepsPerStop);
-    double blueDelta = _computeDelta(startColor.blue, endColor.blue, stepsPerStop);
+    double greenDelta =
+        _computeDelta(startColor.green, endColor.green, stepsPerStop);
+    double blueDelta =
+        _computeDelta(startColor.blue, endColor.blue, stepsPerStop);
 
-    return ColorIncrement(redDelta: redDelta, greenDelta: greenDelta, blueDelta: blueDelta, alphaDelta: 0);
+    return ColorIncrement(
+        redDelta: redDelta,
+        greenDelta: greenDelta,
+        blueDelta: blueDelta,
+        alphaDelta: 0);
   }
 
-  double _computeDelta(int startColorComponent, int endColorComponent, int steps) {
+  double _computeDelta(
+      int startColorComponent, int endColorComponent, int steps) {
     return (endColorComponent - startColorComponent) / steps;
   }
 

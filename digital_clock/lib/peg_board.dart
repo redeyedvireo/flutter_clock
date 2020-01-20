@@ -8,17 +8,16 @@ import 'peg_data.dart';
 import 'numbers.dart';
 import 'color_fader.dart';
 
-
 class PegBoard {
   static const pegWidth = 30;
   static const pegHeight = 18;
   static const maxPegId = pegWidth * pegHeight - 1;
-  static const numberWidth = 6;     // Width of a number, in pegs
-  static const numberHeight = 11;   // Height of a number, in pegs
-  static const spaceWidth = 2;      // Width of space, in pegs
-  static const colonWidth = 2;      // Width of the colon, in pegs
-  static const colonTop = 5;        // Top row of top of colon (the top 'dot')
-  static const colonX = 14;         // Left edge of colons
+  static const numberWidth = 6; // Width of a number, in pegs
+  static const numberHeight = 11; // Height of a number, in pegs
+  static const spaceWidth = 2; // Width of space, in pegs
+  static const colonWidth = 2; // Width of the colon, in pegs
+  static const colonTop = 5; // Top row of top of colon (the top 'dot')
+  static const colonX = 14; // Left edge of colons
   static const interDigitSpace = 1; // Spacing between digits
 
   // x value of the left side of each number "slot".  A slot is where a number will appear.
@@ -35,7 +34,7 @@ class PegBoard {
   int digitBlueDelta = 0;
   int digitGreenDelta = 0;
 
-  Map<int, PegData>   _pegs = {};
+  Map<int, PegData> _pegs = {};
 
   PegBoard() {
     _random = Random(DateTime.now().second);
@@ -90,7 +89,7 @@ class PegBoard {
     final minute0Left = colonX + colonWidth + interDigitSpace;
     final minute1Left = minute0Left + numberWidth + interDigitSpace;
 
-    numberSlotLeftPegIds = [ hour0Left, hour1Left, minute0Left, minute1Left];
+    numberSlotLeftPegIds = [hour0Left, hour1Left, minute0Left, minute1Left];
   }
 
   void _initBackground() {
@@ -108,7 +107,7 @@ class PegBoard {
     digitBlueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
     digitGreenDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
   }
-  
+
   int pegId(int x, int y) => y * pegWidth + x;
   int pegIdCoord(Coord c) => c.y * pegWidth + c.x;
 
@@ -145,7 +144,8 @@ class PegBoard {
     }
   }
 
-  void fillPegAreaWithColorFader(int x, int y, int width, int height, ColorFader colorFader) {
+  void fillPegAreaWithColorFader(
+      int x, int y, int width, int height, ColorFader colorFader) {
     int leftPegId = pegId(x, y);
     int curPegId = leftPegId;
 
@@ -191,7 +191,8 @@ class PegBoard {
   }
 
   void placeNumberOnSlot(int slot, int number) {
-    _drawDigit(numberSlotLeftPegIds[slot], numberWidth, numberHeight, numbers[number]);
+    _drawDigit(
+        numberSlotLeftPegIds[slot], numberWidth, numberHeight, numbers[number]);
   }
 
   void drawColon() {
@@ -200,7 +201,11 @@ class PegBoard {
 
   void _drawDigit(int x, int width, int height, List<int> data) {
     final rowOffset = (pegHeight - height) ~/ 2;
-    final colorFader = ColorFader(startColor: digitColor, redDelta: digitRedDelta, blueDelta: digitBlueDelta, greenDelta: digitGreenDelta);
+    final colorFader = ColorFader(
+        startColor: digitColor,
+        redDelta: digitRedDelta,
+        blueDelta: digitBlueDelta,
+        greenDelta: digitGreenDelta);
 
     int leftPegId = pegId(x, rowOffset);
     int curPegId = leftPegId;

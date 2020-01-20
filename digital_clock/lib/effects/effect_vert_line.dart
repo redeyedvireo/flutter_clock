@@ -4,12 +4,11 @@ import 'package:digital_clock/effects/effect.dart';
 import 'package:digital_clock/peg_board.dart';
 
 class EffectVerticalLine extends Effect {
-
   int currentColumn;
   int finalColumn;
 
-  EffectVerticalLine(PegBoard pegBoard, int frameDuration) :
-        super(pegBoard: pegBoard, frameDuration: frameDuration) {
+  EffectVerticalLine(PegBoard pegBoard, int frameDuration)
+      : super(pegBoard: pegBoard, frameDuration: frameDuration) {
     currentColumn = 0;
     finalColumn = PegBoard.pegWidth - 1;
   }
@@ -25,7 +24,7 @@ class EffectVerticalLine extends Effect {
     }
 
     if (currentColumn > finalColumn) {
-      return false;   // Finished
+      return false; // Finished
     } else {
       return true;
     }

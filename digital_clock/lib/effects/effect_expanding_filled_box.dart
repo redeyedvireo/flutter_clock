@@ -10,7 +10,8 @@ class BoxData {
   Color boxColor;
   PegBoard pegBoard;
 
-  BoxData(this.boxX, this.boxWidth, this.boxY, this.boxHeight, this.boxColor, this.pegBoard);
+  BoxData(this.boxX, this.boxWidth, this.boxY, this.boxHeight, this.boxColor,
+      this.pegBoard);
 
   /// Increments the box by the given size.
   /// Returns true if the box is still within bounds; false if not.
@@ -20,9 +21,10 @@ class BoxData {
     boxWidth += 2;
     boxHeight += 2;
 
-    return (boxX >= 0 && boxX + boxWidth <= PegBoard.pegWidth &&
-        boxY >= 0 && boxY + boxHeight <= PegBoard.pegHeight);
-
+    return (boxX >= 0 &&
+        boxX + boxWidth <= PegBoard.pegWidth &&
+        boxY >= 0 &&
+        boxY + boxHeight <= PegBoard.pegHeight);
   }
 
   void draw() {
@@ -37,14 +39,15 @@ class EffectExpandingFilledBox extends Effect {
   ColorFader _colorFader;
   int _colorDelta;
 
-  EffectExpandingFilledBox(PegBoard pegBoard, int frameDuration) :
-        super(pegBoard: pegBoard, frameDuration: frameDuration) {
+  EffectExpandingFilledBox(PegBoard pegBoard, int frameDuration)
+      : super(pegBoard: pegBoard, frameDuration: frameDuration) {
     _random = Random(DateTime.now().second);
     _colorDelta = _random.nextInt(15) + 10;
-    _colorFader = ColorFader(startColor: pegBoard.randomBrightColor(1.0),
-                              redDelta: -_colorDelta,
-                              blueDelta: -_colorDelta,
-                              greenDelta: -_colorDelta);
+    _colorFader = ColorFader(
+        startColor: pegBoard.randomBrightColor(1.0),
+        redDelta: -_colorDelta,
+        blueDelta: -_colorDelta,
+        greenDelta: -_colorDelta);
 
     _createNewBox();
   }
@@ -56,8 +59,8 @@ class EffectExpandingFilledBox extends Effect {
     final initialBoxX = initialBoxY;
     final initialBoxWidth = PegBoard.pegWidth - 2 * initialBoxX;
 
-    BoxData boxData = BoxData(initialBoxX, initialBoxWidth,
-                              initialBoxY, initialBoxHeight, _colorFader.color, pegBoard);
+    BoxData boxData = BoxData(initialBoxX, initialBoxWidth, initialBoxY,
+        initialBoxHeight, _colorFader.color, pegBoard);
 
     _colorFader.nextStep();
     _boxData.add(boxData);
@@ -96,7 +99,7 @@ class EffectExpandingFilledBox extends Effect {
     }
 
     if (_boxData.length == 0) {
-      return false;   // Finished
+      return false; // Finished
     } else {
       return true;
     }

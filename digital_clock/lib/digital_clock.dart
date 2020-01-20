@@ -16,7 +16,6 @@ import 'peg_board.dart';
 import 'effects/effects_manager.dart';
 import 'backgrounds/background_manager.dart';
 
-
 enum _Element {
   background,
   text,
@@ -55,7 +54,7 @@ class _DigitalClockState extends State<DigitalClock> {
   DateTime _dateTime = DateTime.now();
   Timer _timer;
   int _pegWidth;
-  Map<int, PegWidget>   _pegWidgets;
+  Map<int, PegWidget> _pegWidgets;
   PegBoard pegBoard = new PegBoard();
   EffectsManager effectsManager = EffectsManager();
   BackgroundManager backgroundManager = BackgroundManager();
@@ -114,19 +113,15 @@ class _DigitalClockState extends State<DigitalClock> {
 //        _updateTime,
 //      );
 
-       // Update once per second, but make sure to do it at the beginning of each
-       // new second, so that the clock is accurate.
+      // Update once per second, but make sure to do it at the beginning of each
+      // new second, so that the clock is accurate.
 //       _timer = Timer(
 //         Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
 //         _updateTime,
 //       );
 
-
-       // Update 8 times per second, to allow for animations.
-      _timer = Timer(
-        Duration(milliseconds: _frameDuration),
-        _updateTime
-      );
+      // Update 8 times per second, to allow for animations.
+      _timer = Timer(Duration(milliseconds: _frameDuration), _updateTime);
     });
   }
 
@@ -200,7 +195,9 @@ class _DigitalClockState extends State<DigitalClock> {
         effectsManager.newEffect(EffectType.expandingFilledBox, 200);
         timeEffectStarted = true;
       }
-    } else if ((m0 == 1 && m1 == 5) || (m0 == 3 && m1 == 0) || (m0 == 4 && m1 == 5)) {
+    } else if ((m0 == 1 && m1 == 5) ||
+        (m0 == 3 && m1 == 0) ||
+        (m0 == 4 && m1 == 5)) {
       // Quarter hour
       if (!timeEffectStarted) {
         effectsManager.newEffect(EffectType.flashingBackground, 200);
@@ -211,18 +208,17 @@ class _DigitalClockState extends State<DigitalClock> {
     }
 
     return Container(
-      color: colors[_Element.background],
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _generatePegColumn(PegBoard.pegHeight, PegBoard.pegWidth)
-      )
-    );
+        color: colors[_Element.background],
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:
+                _generatePegColumn(PegBoard.pegHeight, PegBoard.pegWidth)));
   }
 
   void _calculatePegWidth(BuildContext context) {
-      final drawingWidth = MediaQuery.of(context).size.width - borderPerDimension;
-      _pegWidth = (drawingWidth / (PegBoard.pegWidth + 1)).floor();
+    final drawingWidth = MediaQuery.of(context).size.width - borderPerDimension;
+    _pegWidth = (drawingWidth / (PegBoard.pegWidth + 1)).floor();
   }
 
   List<Widget> _generatePegColumn(int numRows, int numPegsInRow) {
@@ -244,7 +240,10 @@ class _DigitalClockState extends State<DigitalClock> {
       final pegId = startingId + i;
       final pegData = pegBoard.getPeg(pegId);
 
-      PegWidget pegWidget = PegWidget(width: _pegWidth, color: pegData.pegColor,);
+      PegWidget pegWidget = PegWidget(
+        width: _pegWidth,
+        color: pegData.pegColor,
+      );
       pegs.add(pegWidget);
       _pegWidgets[pegId] = pegWidget;
     }

@@ -13,7 +13,6 @@ import '../color_fader.dart';
 
 import 'background_manager.dart';
 
-
 class BackgroundAquarium implements IBackground {
   PegBoard pegBoard;
   Random _random;
@@ -32,7 +31,11 @@ class BackgroundAquarium implements IBackground {
   BackgroundAquarium({@required this.pegBoard}) {
     _random = Random(DateTime.now().second);
     topRowColor = (PegBoard.pegHeight - startColor) ~/ blueDelta;
-    colorFader = ColorFader(startColor: Color.fromARGB(255, 0, 0, startColor), redDelta: 0, blueDelta: 10, greenDelta: 0);
+    colorFader = ColorFader(
+        startColor: Color.fromARGB(255, 0, 0, startColor),
+        redDelta: 0,
+        blueDelta: 10,
+        greenDelta: 0);
 
     _addSpriteTemplate(14, 8, fishTemplateMap);
     _addSpriteTemplate(12, 5, fish2TemplateMap);
@@ -47,21 +50,19 @@ class BackgroundAquarium implements IBackground {
   }
 
   void _addSpriteTemplate(int width, int height, templateMap) {
-    _spriteTemplates.add(SpriteTemplate.fromMap(pegBoard, width, height, templateMap));
+    _spriteTemplates
+        .add(SpriteTemplate.fromMap(pegBoard, width, height, templateMap));
     numTemplates++;
-    
   }
-  
+
   Sprite _createSprite(SpriteTemplate spriteTemplate) {
     final mainColor = pegBoard.randomBrightColor(1.0);
-    final stripeColor = Color.fromARGB(255, mainColor.blue, mainColor.red, mainColor.green);
-    final eyeColor = Color.fromARGB(255, mainColor.green, mainColor.blue, mainColor.red);
+    final stripeColor =
+        Color.fromARGB(255, mainColor.blue, mainColor.red, mainColor.green);
+    final eyeColor =
+        Color.fromARGB(255, mainColor.green, mainColor.blue, mainColor.red);
 
-    List<Color> colors = [
-      mainColor,
-      stripeColor,
-      eyeColor
-    ];
+    List<Color> colors = [mainColor, stripeColor, eyeColor];
 
     return spriteTemplate.renderSprite(colors);
   }
@@ -97,7 +98,8 @@ class BackgroundAquarium implements IBackground {
     final spriteTemplateIndex = _random.nextInt(numTemplates);
     final sprite = _createSprite(_spriteTemplates[spriteTemplateIndex]);
 
-    return SpriteMover(spriteList: [sprite],
+    return SpriteMover(
+        spriteList: [sprite],
         id: id,
         start: Coord(x, y),
         increment: Coord(1, 0),
@@ -117,7 +119,8 @@ class BackgroundAquarium implements IBackground {
 
   @override
   void draw() {
-    pegBoard.fillPegAreaWithColorFader(0, 0, PegBoard.pegWidth, PegBoard.pegHeight, colorFader);
+    pegBoard.fillPegAreaWithColorFader(
+        0, 0, PegBoard.pegWidth, PegBoard.pegHeight, colorFader);
 
     if (_elapsedTime.timesUp()) {
       _createSomeSpriteMovers();

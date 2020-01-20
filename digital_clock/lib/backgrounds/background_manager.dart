@@ -10,14 +10,11 @@ import 'background_stars.dart';
 import 'background_the_matrix.dart';
 import 'background_aquarium.dart';
 
-
 // Interface class for backgrounds
 class IBackground {
-
   // Draw the background.  Will be called every timer tick.
   void draw() {}
 }
-
 
 class BackgroundManager {
   PegBoard pegBoard;
@@ -29,7 +26,8 @@ class BackgroundManager {
 
   BackgroundManager() {
     _random = Random(DateTime.now().second);
-    _elapsedTime = ElapsedTime(targetMilliseconds: minutesUntilChangeBackground * 60000);
+    _elapsedTime =
+        ElapsedTime(targetMilliseconds: minutesUntilChangeBackground * 60000);
   }
 
   void createBackgrounds() {

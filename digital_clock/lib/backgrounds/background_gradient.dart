@@ -30,18 +30,18 @@ class BackgroundGradient implements IBackground {
 
     // Color values are from: https://en.wikipedia.org/wiki/RGB_color_model
     colorGradient = ColorGradient(colorStops: [
-      Color.fromARGB(255, 127, 0, 255),       // Violet
-      Color.fromARGB(255, 0, 0, 255),         // Blue
-      Color.fromARGB(255, 0, 127, 255),       // Azure
-      Color.fromARGB(255, 0, 255, 255),       // Cyan
-      Color.fromARGB(255, 0, 255, 127),       // Spring
-      Color.fromARGB(255, 0, 255, 0),         // Green
-      Color.fromARGB(255, 128, 255, 0),       // Chartreuse
-      Color.fromARGB(255, 255, 255, 0),       // Yellow
-      Color.fromARGB(255, 255, 127, 0),       // Orange
-      Color.fromARGB(255, 255, 0, 0),         // Red
-      Color.fromARGB(255, 255, 0, 127),       // Rose
-      Color.fromARGB(255, 255, 0, 255),       // Magenta
+      Color.fromARGB(255, 127, 0, 255), // Violet
+      Color.fromARGB(255, 0, 0, 255), // Blue
+      Color.fromARGB(255, 0, 127, 255), // Azure
+      Color.fromARGB(255, 0, 255, 255), // Cyan
+      Color.fromARGB(255, 0, 255, 127), // Spring
+      Color.fromARGB(255, 0, 255, 0), // Green
+      Color.fromARGB(255, 128, 255, 0), // Chartreuse
+      Color.fromARGB(255, 255, 255, 0), // Yellow
+      Color.fromARGB(255, 255, 127, 0), // Orange
+      Color.fromARGB(255, 255, 0, 0), // Red
+      Color.fromARGB(255, 255, 0, 127), // Rose
+      Color.fromARGB(255, 255, 0, 255), // Magenta
     ], stepsPerStop: _backgroundGradientSteps);
 
     // Set gradient to a random position
@@ -61,10 +61,12 @@ class BackgroundGradient implements IBackground {
       }
     }
 
-    colorGradient.resetPosition(stop: _currentStop, position: _currentPositionInStop);
+    colorGradient.resetPosition(
+        stop: _currentStop, position: _currentPositionInStop);
 
     for (int column = 0; column < PegBoard.pegWidth; column++) {
-      pegBoard.fillPegArea(column, 0, 1, PegBoard.pegHeight, colorGradient.color);
+      pegBoard.fillPegArea(
+          column, 0, 1, PegBoard.pegHeight, colorGradient.color);
       colorGradient.next();
     }
   }

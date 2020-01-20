@@ -4,27 +4,27 @@ import '../coord.dart';
 import 'sprite.dart';
 import '../elapsed_time.dart';
 
-
 class SpriteMover {
   Function isDone;
   Function doneCallback;
-  int id;           // Caller-supplied ID value; used only by the caller
+  int id; // Caller-supplied ID value; used only by the caller
   List<Sprite> spriteList;
   Coord start;
   Coord increment;
-  int frameMs;      // Number of milliseconds the sprite should remain at each position
+  int frameMs; // Number of milliseconds the sprite should remain at each position
   ElapsedTime _elapsedTime;
-  int _currentSprite;    // Points to a sprite in spriteList.  This is the sprite to draw next.
+  int _currentSprite; // Points to a sprite in spriteList.  This is the sprite to draw next.
 
   Coord _currentPos;
 
-  SpriteMover({@required this.spriteList,
-                @required this.id,
-                @required this.start,
-                @required this.increment,
-                @required this.frameMs,
-                @required this.isDone,
-                @required this.doneCallback}) {
+  SpriteMover(
+      {@required this.spriteList,
+      @required this.id,
+      @required this.start,
+      @required this.increment,
+      @required this.frameMs,
+      @required this.isDone,
+      @required this.doneCallback}) {
     _elapsedTime = ElapsedTime(targetMilliseconds: frameMs);
     _currentPos = start;
     _currentSprite = 0;

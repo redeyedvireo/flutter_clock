@@ -10,7 +10,6 @@ import '../elapsed_time.dart';
 
 import 'background_manager.dart';
 
-
 class BackgroundTheMatrix implements IBackground {
   PegBoard pegBoard;
   Random _random;
@@ -28,16 +27,15 @@ class BackgroundTheMatrix implements IBackground {
   }
 
   Sprite _createSprite() {
-    return Sprite(pegBoard: pegBoard,
-        spriteElements: <SpriteElement>[
-          SpriteElement(Coord(0, 0), Color.fromARGB(255, 0, 50, 0)),
-          SpriteElement(Coord(0, 1), Color.fromARGB(255, 0, 90, 0)),
-          SpriteElement(Coord(0, 2), Color.fromARGB(255, 0, 110, 0)),
-          SpriteElement(Coord(0, 3), Color.fromARGB(255, 0, 140, 0)),
-          SpriteElement(Coord(0, 4), Color.fromARGB(255, 0, 170, 0)),
-          SpriteElement(Coord(0, 5), Color.fromARGB(255, 0, 230, 0)),
-          SpriteElement(Coord(0, 6), Color.fromARGB(255, 0, 255, 0)),
-        ]);
+    return Sprite(pegBoard: pegBoard, spriteElements: <SpriteElement>[
+      SpriteElement(Coord(0, 0), Color.fromARGB(255, 0, 50, 0)),
+      SpriteElement(Coord(0, 1), Color.fromARGB(255, 0, 90, 0)),
+      SpriteElement(Coord(0, 2), Color.fromARGB(255, 0, 110, 0)),
+      SpriteElement(Coord(0, 3), Color.fromARGB(255, 0, 140, 0)),
+      SpriteElement(Coord(0, 4), Color.fromARGB(255, 0, 170, 0)),
+      SpriteElement(Coord(0, 5), Color.fromARGB(255, 0, 230, 0)),
+      SpriteElement(Coord(0, 6), Color.fromARGB(255, 0, 255, 0)),
+    ]);
   }
 
   /// Creates a few sprite movers.  This is called at random times to ensure the
@@ -68,13 +66,14 @@ class BackgroundTheMatrix implements IBackground {
     int x = _random.nextInt(PegBoard.pegWidth);
     int y = -(_random.nextInt(3) + 3);
 
-    return SpriteMover(spriteList: [_sprite],
-                        id: id,
-                        start: Coord(x, y),
-                        increment: Coord(0, 1),
-                        frameMs: 300,
-                        isDone: isDone,
-                        doneCallback: spriteFinished);
+    return SpriteMover(
+        spriteList: [_sprite],
+        id: id,
+        start: Coord(x, y),
+        increment: Coord(0, 1),
+        frameMs: 300,
+        isDone: isDone,
+        doneCallback: spriteFinished);
   }
 
   /// Indicates when a sprite is finished.

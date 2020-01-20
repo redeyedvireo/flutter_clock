@@ -6,7 +6,6 @@ import '../color_cyler.dart';
 
 import 'background_manager.dart';
 
-
 class BackgroundColorCycler implements IBackground {
   PegBoard pegBoard;
   Random _random;
@@ -17,9 +16,13 @@ class BackgroundColorCycler implements IBackground {
   BackgroundColorCycler({@required this.pegBoard}) {
     _random = Random(DateTime.now().second);
 
-    colorCycler = ColorCycler(redMin: 100, redMax: 150,
-        greenMin: 100, greenMax: 150,
-        blueMin: 100, blueMax: 150,
+    colorCycler = ColorCycler(
+        redMin: 100,
+        redMax: 150,
+        greenMin: 100,
+        greenMax: 150,
+        blueMin: 100,
+        blueMax: 150,
         redDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
         greenDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
         blueDelta: (_random.nextDouble() * 10 + 5) / colorCycleScaleFactor,
@@ -27,7 +30,8 @@ class BackgroundColorCycler implements IBackground {
   }
 
   void draw() {
-    pegBoard.fillPegArea(0, 0, PegBoard.pegWidth, PegBoard.pegHeight, colorCycler.color);
+    pegBoard.fillPegArea(
+        0, 0, PegBoard.pegWidth, PegBoard.pegHeight, colorCycler.color);
     colorCycler.next();
   }
 }

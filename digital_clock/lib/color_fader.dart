@@ -10,11 +10,12 @@ class ColorFader {
   int blueDelta = 0;
   int alphaDelta = 0;
 
-  ColorFader({@required this.startColor,
-              this.redDelta = 0,
-              this.greenDelta = 0,
-              this.blueDelta = 0,
-              this.alphaDelta = 0}) {
+  ColorFader(
+      {@required this.startColor,
+      this.redDelta = 0,
+      this.greenDelta = 0,
+      this.blueDelta = 0,
+      this.alphaDelta = 0}) {
     start();
   }
 

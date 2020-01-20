@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum PegType {
-  background,
-  effect,
-  digit
-}
+enum PegType { background, effect, digit }
 
 class PegData {
   static const blankPeg = Color.fromRGBO(0, 0, 0, 0.0);

@@ -5,14 +5,13 @@ import 'package:digital_clock/effects/effect.dart';
 import 'package:digital_clock/peg_board.dart';
 
 class EffectFlashBackground extends Effect {
-
   List<int> _originalAlphas;
   static const numFlashes = 10;
   int _numberOfFlashes = 0;
   bool _backgroundHidden = false;
 
-  EffectFlashBackground(PegBoard pegBoard, int frameDuration) :
-        super(pegBoard: pegBoard, frameDuration: frameDuration) {
+  EffectFlashBackground(PegBoard pegBoard, int frameDuration)
+      : super(pegBoard: pegBoard, frameDuration: frameDuration) {
     _originalAlphas = List<int>.filled(pegBoard.totalPegs, 0, growable: false);
 
     _getOriginalAlphas();

@@ -20,7 +20,6 @@ class BackgroundColorFader implements IBackground {
   int blueDelta = 0;
   int greenDelta = 0;
 
-
   BackgroundColorFader({@required this.pegBoard}) {
     _random = Random(DateTime.now().second);
 
@@ -36,7 +35,11 @@ class BackgroundColorFader implements IBackground {
     blueDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
     greenDelta = _random.nextInt(12) * (_random.nextInt(7) > 3 ? 1 : -1);
 
-    colorFader = ColorFader(startColor: backgroundColor, redDelta: redDelta, blueDelta: blueDelta, greenDelta: greenDelta);
+    colorFader = ColorFader(
+        startColor: backgroundColor,
+        redDelta: redDelta,
+        blueDelta: blueDelta,
+        greenDelta: greenDelta);
   }
 
   void draw() {
@@ -50,9 +53,7 @@ class BackgroundColorFader implements IBackground {
 
     for (int i = 0; i < PegBoard.pegHeight; i++) {
       for (int j = 0; j < PegBoard.pegWidth; j++) {
-        pegBoard
-            .getPeg(curPegId)
-            .pegColor = colorFader.color;
+        pegBoard.getPeg(curPegId).pegColor = colorFader.color;
         curPegId++;
       }
 

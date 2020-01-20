@@ -6,13 +6,7 @@ import 'package:digital_clock/peg_data.dart';
 
 import 'background_manager.dart';
 
-enum StarState {
-  newStar,
-  twinkling,
-  fadingIn,
-  fadingOut,
-  normal
-}
+enum StarState { newStar, twinkling, fadingIn, fadingOut, normal }
 
 class Star {
   int x;
@@ -28,8 +22,14 @@ class Star {
   int currentAlpha = 0;
   DateTime doneTime;
 
-  Star({@required this.x, @required this.y, @required this.color, @required this.pegBoard, @required this.random}) {
-    doneTime = DateTime.now().add(Duration(seconds: random.nextInt(lifeTimeSeconds) + minLifetimeSeconds));
+  Star(
+      {@required this.x,
+      @required this.y,
+      @required this.color,
+      @required this.pegBoard,
+      @required this.random}) {
+    doneTime = DateTime.now().add(Duration(
+        seconds: random.nextInt(lifeTimeSeconds) + minLifetimeSeconds));
   }
 
   // The return value indicates if the star should continue to be displayed.
@@ -40,12 +40,14 @@ class Star {
       case StarState.newStar:
         // Start fading
         state = StarState.fadingIn;
-        pegBoard.getPeg(pegBoard.pegId(x, y)).pegColor = color.withAlpha(currentAlpha);
+        pegBoard.getPeg(pegBoard.pegId(x, y)).pegColor =
+            color.withAlpha(currentAlpha);
         break;
 
       case StarState.fadingIn:
         currentAlpha = min(currentAlpha + alphaStep, 255);
-        pegBoard.getPeg(pegBoard.pegId(x, y)).pegColor = color.withAlpha(currentAlpha);
+        pegBoard.getPeg(pegBoard.pegId(x, y)).pegColor =
+            color.withAlpha(currentAlpha);
 
         if (currentAlpha == 255) {
           state = StarState.normal;
@@ -54,7 +56,8 @@ class Star {
 
       case StarState.fadingOut:
         currentAlpha = max(currentAlpha - alphaStep, 0);
-        pegBoard.getPeg(pegBoard.pegId(x, y)).pegColor = color.withAlpha(currentAlpha);
+        pegBoard.getPeg(pegBoard.pegId(x, y)).pegColor =
+            color.withAlpha(currentAlpha);
 
         if (currentAlpha == 0) {
           // The star is finished
@@ -94,7 +97,8 @@ class BackgroundStars implements IBackground {
   }
 
   void _createStar() {
-    final star = Star(x: _random.nextInt(PegBoard.pegWidth),
+    final star = Star(
+        x: _random.nextInt(PegBoard.pegWidth),
         y: _random.nextInt(PegBoard.pegHeight),
         color: pegBoard.randomColor(1.0),
         pegBoard: pegBoard,
