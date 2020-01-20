@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-import 'package:digital_clock/effects/effect.dart';
-import 'package:digital_clock/peg_board.dart';
+import 'effect.dart';
+import '../peg_board.dart';
+import '../color_fader.dart';
 
 class BoxData {
   int boxX, boxY, boxWidth, boxHeight;
@@ -29,16 +31,25 @@ class BoxData {
 }
 
 class EffectExpandingFilledBox extends Effect {
-
+  Random _random;
   List<BoxData> _boxData = [];
   bool createNewBoxes = true;
+  ColorFader _colorFader;
+  int _colorDelta;
 
   EffectExpandingFilledBox(PegBoard pegBoard, int frameDuration) :
         super(pegBoard: pegBoard, frameDuration: frameDuration) {
-    _createNewBox(pegBoard.randomColor(1.0));
+    _random = Random(DateTime.now().second);
+    _colorDelta = _random.nextInt(15) + 10;
+    _colorFader = ColorFader(startColor: pegBoard.randomBrightColor(1.0),
+                              redDelta: -_colorDelta,
+                              blueDelta: -_colorDelta,
+                              greenDelta: -_colorDelta);
+
+    _createNewBox();
   }
 
-  void _createNewBox(Color color) {
+  void _createNewBox() {
     final initialBoxHeight = 2;
     final initialBoxY = (PegBoard.pegHeight - initialBoxHeight) ~/ 2;
 
@@ -46,7 +57,9 @@ class EffectExpandingFilledBox extends Effect {
     final initialBoxWidth = PegBoard.pegWidth - 2 * initialBoxX;
 
     BoxData boxData = BoxData(initialBoxX, initialBoxWidth,
-                              initialBoxY, initialBoxHeight, color, pegBoard);
+                              initialBoxY, initialBoxHeight, _colorFader.color, pegBoard);
+
+    _colorFader.nextStep();
     _boxData.add(boxData);
   }
 
@@ -71,10 +84,10 @@ class EffectExpandingFilledBox extends Effect {
           createNewBoxes = false;
           numBoxesToRemove++;
         }
+      }
 
-        if (createNewBoxes) {
-          _createNewBox(pegBoard.randomColor(1.0));
-        }
+      if (createNewBoxes) {
+        _createNewBox();
       }
 
       if (numBoxesToRemove > 0) {
