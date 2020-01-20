@@ -68,6 +68,14 @@ class PegBoard {
     return Color.fromRGBO(red, green, blue, opacity);
   }
 
+  Color randomDarkColor(double opacity) {
+    final red = _random.nextInt(100) + 10;
+    final green = _random.nextInt(100) + 10;
+    final blue = _random.nextInt(100) + 10;
+
+    return Color.fromRGBO(red, green, blue, opacity);
+  }
+
   // Set pegs to a random color
   void generateRandomBoard() {
     for (int i = 0; i < totalPegs; i++) {
